@@ -6,24 +6,24 @@ import java.util.List;
 
 /**
  * 
- * StarDict Dictionary Index.
+ * StarDict Dictionary Synonyms Index.
  * 
  * @author sean
  *
  */
-public class StarDictDictionaryIndex implements Serializable {
+public class StarDictDictionarySynonymsIndex implements Serializable {
 
-	private static final long serialVersionUID = -860867409851270304L;
+	private static final long serialVersionUID = -8783162669920171077L;
 
 	// Index items
-	private final List<StarDictDictionaryIndexItem> items;
+	private final List<StarDictDictionarySynonymsIndexItem> items;
 
 	/**
 	 * 
 	 * Create index item array.
 	 * 
 	 */
-	public StarDictDictionaryIndex() {
+	public StarDictDictionarySynonymsIndex() {
 		this.items = new ArrayList<>();
 	}
 
@@ -37,14 +37,14 @@ public class StarDictDictionaryIndex implements Serializable {
 	 * @throws IllegalArgumentException
 	 *             when wordCount <= 0
 	 */
-	public StarDictDictionaryIndex(final int wordCount) {
+	public StarDictDictionarySynonymsIndex(final int wordCount) {
 		if (wordCount <= 0) {
 			throw new IllegalArgumentException("wordCount must be geater than 0");
 		}
 		this.items = new ArrayList<>(wordCount);
 	}
 
-	public List<StarDictDictionaryIndexItem> getItems() {
+	public List<StarDictDictionarySynonymsIndexItem> getItems() {
 		return items;
 	}
 
@@ -57,7 +57,7 @@ public class StarDictDictionaryIndex implements Serializable {
 	 * 
 	 * @return item or null if position < 0 or position > items length
 	 */
-	public StarDictDictionaryIndexItem getItem(final int pos) {
+	public StarDictDictionarySynonymsIndexItem getItem(final int pos) {
 		return pos >= 0 && pos < items.size() ? items.get(pos) : null;
 	}
 
@@ -69,7 +69,7 @@ public class StarDictDictionaryIndex implements Serializable {
 	 *            index item
 	 * 
 	 */
-	public void addItem(final StarDictDictionaryIndexItem item) {
+	public void addItem(final StarDictDictionarySynonymsIndexItem item) {
 		if (this.items == null) {
 			throw new RuntimeException("items is null");
 		}

@@ -35,7 +35,7 @@ public class StarDictDictionaryIndexReader {
 		final StarDictDictionaryIndex index = new StarDictDictionaryIndex(info.getWordCount());
 		// index item format: word_str(256bytes) \0 word_data_offset(32/64bit)
 		// word_data_size(32bit)
-		while (in.remaining() > 0 && counter < info.getWordCount()) {
+		while (in.remaining() > 0 && (null != info.getWordCount() && counter < info.getWordCount())) {
 			final byte b = in.get();
 			if (0 == b) {
 				// get word_str
@@ -52,14 +52,13 @@ public class StarDictDictionaryIndexReader {
 				// get size
 				final Integer size = in.getInt();
 
-				index.setItem(counter++, new StarDictDictionaryIndexItem(word, offset, size));
+				index.addItem(new StarDictDictionaryIndexItem(word, offset, size));
+				counter++;
 			} else {
 				buffer.put(b);
 			}
 		}
 
-		// remove tail null elements if exists
-		index.pack();
 		return index;
 	}
 
