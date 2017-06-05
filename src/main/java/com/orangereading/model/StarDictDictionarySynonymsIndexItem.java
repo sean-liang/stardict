@@ -13,9 +13,16 @@ public class StarDictDictionarySynonymsIndexItem implements Serializable {
 
 	private static final long serialVersionUID = 6672567268969497023L;
 
+	// synonym_word, a utf-8 string, length < 256
 	private String word;
 
+	// a 32-bits unsigned number in network byte order
 	private Integer index;
+
+	public StarDictDictionarySynonymsIndexItem(String word, Integer index) {
+		this.word = word;
+		this.index = index;
+	}
 
 	public String getWord() {
 		return word;

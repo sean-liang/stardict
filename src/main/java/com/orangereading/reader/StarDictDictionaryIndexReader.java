@@ -35,7 +35,7 @@ public class StarDictDictionaryIndexReader {
 		final StarDictDictionaryIndex index = new StarDictDictionaryIndex(info.getWordCount());
 		// index item format: word_str(256bytes) \0 word_data_offset(32/64bit)
 		// word_data_size(32bit)
-		while (in.remaining() > 0 && counter < info.getWordCount()) {
+		while (in.remaining() > 0 && (null != info.getWordCount() && counter < info.getWordCount())) {
 			final byte b = in.get();
 			if (0 == b) {
 				// get word_str
