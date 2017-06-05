@@ -1,7 +1,8 @@
 package com.orangereading.model;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -15,7 +16,16 @@ public class StarDictDictionaryIndex implements Serializable {
 	private static final long serialVersionUID = -860867409851270304L;
 
 	// Index items
-	private StarDictDictionaryIndexItem[] items;
+	private final List<StarDictDictionaryIndexItem> items;
+
+	/**
+	 * 
+	 * Create index item array.
+	 * 
+	 */
+	public StarDictDictionaryIndex() {
+		this.items = new ArrayList<>();
+	}
 
 	/**
 	 * 
@@ -31,7 +41,11 @@ public class StarDictDictionaryIndex implements Serializable {
 		if (wordCount <= 0) {
 			throw new IllegalArgumentException("wordCount must be geater than 0");
 		}
-		this.items = new StarDictDictionaryIndexItem[wordCount];
+		this.items = new ArrayList<>(wordCount);
+	}
+
+	public List<StarDictDictionaryIndexItem> getItems() {
+		return items;
 	}
 
 	/**
@@ -41,38 +55,25 @@ public class StarDictDictionaryIndex implements Serializable {
 	 * @param pos
 	 *            position
 	 * 
-	 * @return item or null if items is null or position < 0 or position > items
-	 *         length
+	 * @return item or null if position < 0 or position > items length
 	 */
 	public StarDictDictionaryIndexItem getItem(final int pos) {
-		return this.items != null && pos >= 0 && pos < items.length ? items[pos] : null;
+		return pos >= 0 && pos < items.size() ? items.get(pos) : null;
 	}
 
 	/**
 	 * 
-	 * Set item at position.
+	 * append item to list.
 	 * 
-	 * @param pos
-	 *            position
 	 * @param item
-	 *            item
+	 *            index item
 	 * 
-	 * @throws RuntimeException
-	 *             when items is null
-	 * @throws IllegalArgumentException
-	 *             when item is null or position < 0 or position > items length
 	 */
-	public void setItem(final int pos, final StarDictDictionaryIndexItem item) {
+	public void addItem(final StarDictDictionaryIndexItem item) {
 		if (this.items == null) {
 			throw new RuntimeException("items is null");
 		}
-		if (null == item) {
-			throw new IllegalArgumentException("item can't be null");
-		}
-		if (pos < 0 || pos > this.items.length) {
-			throw new IllegalArgumentException("position must between 0 and " + this.items.length);
-		}
-		this.items[pos] = item;
+		this.items.add(item);
 	}
 
 	/**
@@ -83,35 +84,7 @@ public class StarDictDictionaryIndex implements Serializable {
 	 * 
 	 */
 	public int size() {
-		return this.items != null ? this.items.length : 0;
-	}
-
-	/**
-	 * 
-	 * Remove tailing null elements.
-	 * 
-	 * @return number of items removed
-	 * 
-	 */
-	public int pack() {
-		final int len = this.items.length;
-		int removed = 0;
-		for (int i = len - 1; i >= 0; i--) {
-			if (null == items[i]) {
-				removed++;
-			} else {
-				break;
-			}
-		}
-		if (removed > 0) {
-			this.items = Arrays.copyOf(this.items, len - removed);
-		}
-		return removed;
-	}
-
-	@Override
-	public String toString() {
-		return "StarDictDictionaryIndex [items=" + Arrays.toString(items) + "]";
+		return this.items != null ? this.items.size() : 0;
 	}
 
 }
