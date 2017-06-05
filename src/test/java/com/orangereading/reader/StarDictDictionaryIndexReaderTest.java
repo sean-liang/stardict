@@ -12,15 +12,16 @@ import junit.framework.TestCase;
 
 public class StarDictDictionaryIndexReaderTest extends TestCase {
 
+	private final ByteBuffer input32Bit = ByteBuffer.wrap(TestUtils.hexStringToByteArray(
+			"61000000 00000000 00844120 616E6420 42206167 676C7574 696E6F67 656E7300 00000084 00000018"));
+
 	@Test
 	public void testRead32bitOffset() {
-		final ByteBuffer in = ByteBuffer.wrap(TestUtils.hexStringToByteArray(
-				"61000000 00000000 00844120 616E6420 42206167 676C7574 696E6F67 656E7300 00000084 00000018"));
 		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
 		info.setWordCount(2);
 
 		final StarDictDictionaryIndexReader reader = new StarDictDictionaryIndexReader();
-		final StarDictDictionaryIndex indexes = reader.read(info, in);
+		final StarDictDictionaryIndex indexes = reader.read(info, input32Bit);
 
 		assertEquals(2, indexes.size());
 
@@ -42,13 +43,11 @@ public class StarDictDictionaryIndexReaderTest extends TestCase {
 
 	@Test
 	public void testReadWithLessWordCount() {
-		final ByteBuffer in = ByteBuffer.wrap(TestUtils.hexStringToByteArray(
-				"61000000 00000000 00844120 616E6420 42206167 676C7574 696E6F67 656E7300 00000084 00000018"));
 		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
 		info.setWordCount(1);
 
 		final StarDictDictionaryIndexReader reader = new StarDictDictionaryIndexReader();
-		final StarDictDictionaryIndex indexes = reader.read(info, in);
+		final StarDictDictionaryIndex indexes = reader.read(info, input32Bit);
 
 		assertEquals(1, indexes.size());
 		assertEquals("a", indexes.getItem(0).getWord());
@@ -56,13 +55,11 @@ public class StarDictDictionaryIndexReaderTest extends TestCase {
 
 	@Test
 	public void testReadWithMoreWordCount() {
-		final ByteBuffer in = ByteBuffer.wrap(TestUtils.hexStringToByteArray(
-				"61000000 00000000 00844120 616E6420 42206167 676C7574 696E6F67 656E7300 00000084 00000018"));
 		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
 		info.setWordCount(3);
 
 		final StarDictDictionaryIndexReader reader = new StarDictDictionaryIndexReader();
-		final StarDictDictionaryIndex indexes = reader.read(info, in);
+		final StarDictDictionaryIndex indexes = reader.read(info, input32Bit);
 
 		assertEquals(2, indexes.size());
 		assertEquals("a", indexes.getItem(0).getWord());
