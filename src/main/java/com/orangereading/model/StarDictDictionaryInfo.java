@@ -2,6 +2,13 @@ package com.orangereading.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * StarDict dictionary meta.
+ * 
+ * @author sean
+ *
+ */
 public class StarDictDictionaryInfo implements Serializable {
 
 	private static final long serialVersionUID = 8843514996627435927L;

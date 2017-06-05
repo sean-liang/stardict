@@ -6,10 +6,10 @@ import com.orangereading.model.StarDictDictionaryInfo;
 
 import junit.framework.TestCase;
 
-public class StartDictDictionaryInfoReaderTest extends TestCase {
+public class StarDictDictionaryInfoReaderTest extends TestCase {
 
 	public void testRead() {
-		final StartDictDictionaryInfoReader reader = new StartDictDictionaryInfoReader();
+		final StarDictDictionaryInfoReader reader = new StarDictDictionaryInfoReader();
 		final StarDictDictionaryInfo info = reader.read(Stream.of("StarDict's dict ifo file", "version=2.4.2",
 				"wordcount=100", "synwordcount=200", "idxfilesize=300", "idxoffsetbits=64", "bookname=Test Dict",
 				"author=Tester", "email=test@test.com", "website=test.com", "description=some desc", "date=2003.08.26",

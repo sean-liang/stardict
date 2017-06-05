@@ -4,9 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.orangereading.model.StarDictDictionaryInfo;
 
 /**
@@ -16,11 +13,9 @@ import com.orangereading.model.StarDictDictionaryInfo;
  * @author sean
  *
  */
-public class StartDictDictionaryInfoReader {
+public class StarDictDictionaryInfoReader {
 
 	private final static Pattern PROP_PATTERN = Pattern.compile("^([^=]+)=([^=]+)$");
-
-	private final static Logger log = LoggerFactory.getLogger(StartDictDictionaryInfoReader.class);
 
 	/**
 	 * 
@@ -80,7 +75,6 @@ public class StartDictDictionaryInfoReader {
 			}
 		});
 
-		log.info("Read Info: {}", info);
 		return info;
 	}
 
