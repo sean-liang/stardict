@@ -1,4 +1,4 @@
-package com.orangereading.stardict.model;
+package com.orangereading.stardict.domain;
 
 import java.io.Serializable;
 
@@ -14,12 +14,12 @@ public class DictionarySynonymsIndexItem implements Serializable {
 	private static final long serialVersionUID = 6672567268969497023L;
 
 	// synonym_word, a utf-8 string, length < 256
-	private String word;
+	private final String word;
 
 	// a 32-bits unsigned number in network byte order
-	private Integer index;
+	private final Integer index;
 
-	public DictionarySynonymsIndexItem(String word, Integer index) {
+	public DictionarySynonymsIndexItem(final String word, final Integer index) {
 		this.word = word;
 		this.index = index;
 	}
@@ -28,16 +28,8 @@ public class DictionarySynonymsIndexItem implements Serializable {
 		return word;
 	}
 
-	public void setWord(String word) {
-		this.word = word;
-	}
-
 	public Integer getIndex() {
 		return index;
-	}
-
-	public void setIndex(Integer index) {
-		this.index = index;
 	}
 
 	@Override

@@ -1,12 +1,12 @@
-package com.orangereading.stardict.reader;
+package com.orangereading.stardict.io;
 
 import java.nio.ByteBuffer;
 
 import org.junit.Test;
 
-import com.orangereading.stardict.model.DictionaryIndex;
-import com.orangereading.stardict.model.DictionaryInfo;
-import com.orangereading.stardict.reader.DictionaryIndexReader;
+import com.orangereading.stardict.domain.DictionaryIndex;
+import com.orangereading.stardict.domain.DictionaryInfo;
+import com.orangereading.stardict.io.DictionaryIndexReader;
 
 import junit.framework.TestCase;
 

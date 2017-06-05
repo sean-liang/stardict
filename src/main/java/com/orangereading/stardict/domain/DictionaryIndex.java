@@ -1,4 +1,4 @@
-package com.orangereading.stardict.model;
+package com.orangereading.stardict.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;

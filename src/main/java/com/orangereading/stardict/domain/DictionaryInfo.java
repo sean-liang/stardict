@@ -1,4 +1,4 @@
-package com.orangereading.stardict.model;
+package com.orangereading.stardict.domain;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -144,6 +144,10 @@ public class DictionaryInfo implements Serializable {
 
 	public void setSameTypeSequence(TypeIdentifier[] sameTypeSequence) {
 		this.sameTypeSequence = sameTypeSequence;
+	}
+
+	public boolean isSameTypeSequence() {
+		return null != this.sameTypeSequence && this.sameTypeSequence.length > 0;
 	}
 
 	@Override

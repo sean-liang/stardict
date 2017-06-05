@@ -1,11 +1,11 @@
-package com.orangereading.stardict.reader;
+package com.orangereading.stardict.io;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import com.orangereading.stardict.model.DictionaryInfo;
-import com.orangereading.stardict.model.TypeIdentifier;
-import com.orangereading.stardict.reader.DictionaryInfoReader;
+import com.orangereading.stardict.domain.DictionaryInfo;
+import com.orangereading.stardict.domain.TypeIdentifier;
+import com.orangereading.stardict.io.DictionaryInfoReader;
 
 import junit.framework.TestCase;
 

@@ -1,11 +1,11 @@
-package com.orangereading.stardict.reader;
+package com.orangereading.stardict.io;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-import com.orangereading.stardict.model.DictionaryInfo;
-import com.orangereading.stardict.model.DictionarySynonymsIndex;
-import com.orangereading.stardict.model.DictionarySynonymsIndexItem;
+import com.orangereading.stardict.domain.DictionaryInfo;
+import com.orangereading.stardict.domain.DictionarySynonymsIndex;
+import com.orangereading.stardict.domain.DictionarySynonymsIndexItem;
 
 /**
  * 
