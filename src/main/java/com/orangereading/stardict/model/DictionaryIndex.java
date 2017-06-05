@@ -1,4 +1,4 @@
-package com.orangereading.model;
+package com.orangereading.stardict.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,19 +11,19 @@ import java.util.List;
  * @author sean
  *
  */
-public class StarDictDictionaryIndex implements Serializable {
+public class DictionaryIndex implements Serializable {
 
 	private static final long serialVersionUID = -860867409851270304L;
 
 	// Index items
-	private final List<StarDictDictionaryIndexItem> items;
+	private final List<DictionaryIndexItem> items;
 
 	/**
 	 * 
 	 * Create index item array.
 	 * 
 	 */
-	public StarDictDictionaryIndex() {
+	public DictionaryIndex() {
 		this.items = new ArrayList<>();
 	}
 
@@ -37,14 +37,14 @@ public class StarDictDictionaryIndex implements Serializable {
 	 * @throws IllegalArgumentException
 	 *             when wordCount <= 0
 	 */
-	public StarDictDictionaryIndex(final int wordCount) {
+	public DictionaryIndex(final int wordCount) {
 		if (wordCount <= 0) {
 			throw new IllegalArgumentException("wordCount must be geater than 0");
 		}
 		this.items = new ArrayList<>(wordCount);
 	}
 
-	public List<StarDictDictionaryIndexItem> getItems() {
+	public List<DictionaryIndexItem> getItems() {
 		return items;
 	}
 
@@ -57,7 +57,7 @@ public class StarDictDictionaryIndex implements Serializable {
 	 * 
 	 * @return item or null if position < 0 or position > items length
 	 */
-	public StarDictDictionaryIndexItem getItem(final int pos) {
+	public DictionaryIndexItem getItem(final int pos) {
 		return pos >= 0 && pos < items.size() ? items.get(pos) : null;
 	}
 
@@ -69,7 +69,7 @@ public class StarDictDictionaryIndex implements Serializable {
 	 *            index item
 	 * 
 	 */
-	public void addItem(final StarDictDictionaryIndexItem item) {
+	public void addItem(final DictionaryIndexItem item) {
 		if (this.items == null) {
 			throw new RuntimeException("items is null");
 		}

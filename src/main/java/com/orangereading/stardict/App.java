@@ -1,4 +1,4 @@
-package com.orangereading;
+package com.orangereading.stardict;
 
 /**
  * Hello world!

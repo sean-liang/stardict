@@ -1,23 +1,24 @@
-package com.orangereading.reader;
+package com.orangereading.stardict.reader;
 
 import java.nio.ByteBuffer;
 
 import org.junit.Test;
 
-import com.orangereading.model.StarDictDictionaryInfo;
-import com.orangereading.model.StarDictDictionarySynonymsIndex;
+import com.orangereading.stardict.model.DictionaryInfo;
+import com.orangereading.stardict.model.DictionarySynonymsIndex;
+import com.orangereading.stardict.reader.DictionarySynonymsIndexReader;
 
 import junit.framework.TestCase;
 
-public class StarDictDictionarySynonymsIndexReaderTest extends TestCase {
+public class DictionarySynonymsIndexReaderTest extends TestCase {
 
 	@Test
 	public void testRead() {
-		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
+		final DictionaryInfo info = new DictionaryInfo();
 		info.setSynWordCount(2);
 
-		final StarDictDictionarySynonymsIndexReader reader = new StarDictDictionarySynonymsIndexReader();
-		final StarDictDictionarySynonymsIndex indexes = reader.read(info, createInput());
+		final DictionarySynonymsIndexReader reader = new DictionarySynonymsIndexReader();
+		final DictionarySynonymsIndex indexes = reader.read(info, createInput());
 
 		assertEquals(2, indexes.size());
 
@@ -32,11 +33,11 @@ public class StarDictDictionarySynonymsIndexReaderTest extends TestCase {
 
 	@Test
 	public void testReadWithLessWordCount() {
-		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
+		final DictionaryInfo info = new DictionaryInfo();
 		info.setSynWordCount(1);
 
-		final StarDictDictionarySynonymsIndexReader reader = new StarDictDictionarySynonymsIndexReader();
-		final StarDictDictionarySynonymsIndex indexes = reader.read(info, createInput());
+		final DictionarySynonymsIndexReader reader = new DictionarySynonymsIndexReader();
+		final DictionarySynonymsIndex indexes = reader.read(info, createInput());
 
 		assertEquals(1, indexes.size());
 		assertEquals("a", indexes.getItem(0).getWord());
@@ -44,11 +45,11 @@ public class StarDictDictionarySynonymsIndexReaderTest extends TestCase {
 
 	@Test
 	public void testReadWithMoreWordCount() {
-		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
+		final DictionaryInfo info = new DictionaryInfo();
 		info.setSynWordCount(3);
 
-		final StarDictDictionarySynonymsIndexReader reader = new StarDictDictionarySynonymsIndexReader();
-		final StarDictDictionarySynonymsIndex indexes = reader.read(info, createInput());
+		final DictionarySynonymsIndexReader reader = new DictionarySynonymsIndexReader();
+		final DictionarySynonymsIndex indexes = reader.read(info, createInput());
 
 		assertEquals(2, indexes.size());
 		assertEquals("a", indexes.getItem(0).getWord());

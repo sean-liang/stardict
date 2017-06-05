@@ -1,16 +1,17 @@
-package com.orangereading.reader;
+package com.orangereading.stardict.reader;
 
 import java.util.stream.Stream;
 
-import com.orangereading.model.StarDictDictionaryInfo;
+import com.orangereading.stardict.model.DictionaryInfo;
+import com.orangereading.stardict.reader.DictionaryInfoReader;
 
 import junit.framework.TestCase;
 
-public class StarDictDictionaryInfoReaderTest extends TestCase {
+public class DictionaryInfoReaderTest extends TestCase {
 
 	public void testRead() {
-		final StarDictDictionaryInfoReader reader = new StarDictDictionaryInfoReader();
-		final StarDictDictionaryInfo info = reader.read(Stream.of("StarDict's dict ifo file", "version=2.4.2",
+		final DictionaryInfoReader reader = new DictionaryInfoReader();
+		final DictionaryInfo info = reader.read(Stream.of("StarDict's dict ifo file", "version=2.4.2",
 				"wordcount=100", "synwordcount=200", "idxfilesize=300", "idxoffsetbits=64", "bookname=Test Dict",
 				"author=Tester", "email=test@test.com", "website=test.com", "description=some desc", "date=2003.08.26",
 				"sametypesequence=m"));

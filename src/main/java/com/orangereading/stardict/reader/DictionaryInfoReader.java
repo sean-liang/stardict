@@ -1,10 +1,10 @@
-package com.orangereading.reader;
+package com.orangereading.stardict.reader;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import com.orangereading.model.StarDictDictionaryInfo;
+import com.orangereading.stardict.model.DictionaryInfo;
 
 /**
  * 
@@ -13,7 +13,7 @@ import com.orangereading.model.StarDictDictionaryInfo;
  * @author sean
  *
  */
-public class StarDictDictionaryInfoReader {
+public class DictionaryInfoReader {
 
 	private final static Pattern PROP_PATTERN = Pattern.compile("^([^=]+)=([^=]+)$");
 
@@ -27,8 +27,8 @@ public class StarDictDictionaryInfoReader {
 	 * @return meta data
 	 * 
 	 */
-	public StarDictDictionaryInfo read(final Stream<String> stream) {
-		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
+	public DictionaryInfo read(final Stream<String> stream) {
+		final DictionaryInfo info = new DictionaryInfo();
 		stream.forEach(line -> {
 			final Matcher matcher = PROP_PATTERN.matcher(line);
 			if (matcher.matches()) {

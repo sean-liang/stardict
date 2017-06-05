@@ -1,23 +1,24 @@
-package com.orangereading.reader;
+package com.orangereading.stardict.reader;
 
 import java.nio.ByteBuffer;
 
 import org.junit.Test;
 
-import com.orangereading.model.StarDictDictionaryIndex;
-import com.orangereading.model.StarDictDictionaryInfo;
+import com.orangereading.stardict.model.DictionaryIndex;
+import com.orangereading.stardict.model.DictionaryInfo;
+import com.orangereading.stardict.reader.DictionaryIndexReader;
 
 import junit.framework.TestCase;
 
-public class StarDictDictionaryIndexReaderTest extends TestCase {
+public class DictionaryIndexReaderTest extends TestCase {
 
 	@Test
 	public void testRead32bitOffset() {
-		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
+		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(2);
 
-		final StarDictDictionaryIndexReader reader = new StarDictDictionaryIndexReader();
-		final StarDictDictionaryIndex indexes = reader.read(info, create32BitInput());
+		final DictionaryIndexReader reader = new DictionaryIndexReader();
+		final DictionaryIndex indexes = reader.read(info, create32BitInput());
 
 		assertEquals(2, indexes.size());
 
@@ -34,12 +35,12 @@ public class StarDictDictionaryIndexReaderTest extends TestCase {
 
 	@Test
 	public void testRead64bitOffset() {
-		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
+		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(2);
 		info.setIdxOffsetBits(64);
 
-		final StarDictDictionaryIndexReader reader = new StarDictDictionaryIndexReader();
-		final StarDictDictionaryIndex indexes = reader.read(info, create64BitInput());
+		final DictionaryIndexReader reader = new DictionaryIndexReader();
+		final DictionaryIndex indexes = reader.read(info, create64BitInput());
 
 		assertEquals(2, indexes.size());
 
@@ -56,11 +57,11 @@ public class StarDictDictionaryIndexReaderTest extends TestCase {
 
 	@Test
 	public void testReadWithLessWordCount() {
-		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
+		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(1);
 
-		final StarDictDictionaryIndexReader reader = new StarDictDictionaryIndexReader();
-		final StarDictDictionaryIndex indexes = reader.read(info, create32BitInput());
+		final DictionaryIndexReader reader = new DictionaryIndexReader();
+		final DictionaryIndex indexes = reader.read(info, create32BitInput());
 
 		assertEquals(1, indexes.size());
 		assertEquals("a", indexes.getItem(0).getWord());
@@ -68,11 +69,11 @@ public class StarDictDictionaryIndexReaderTest extends TestCase {
 
 	@Test
 	public void testReadWithMoreWordCount() {
-		final StarDictDictionaryInfo info = new StarDictDictionaryInfo();
+		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(3);
 
-		final StarDictDictionaryIndexReader reader = new StarDictDictionaryIndexReader();
-		final StarDictDictionaryIndex indexes = reader.read(info, create32BitInput());
+		final DictionaryIndexReader reader = new DictionaryIndexReader();
+		final DictionaryIndex indexes = reader.read(info, create32BitInput());
 
 		assertEquals(2, indexes.size());
 		assertEquals("a", indexes.getItem(0).getWord());

@@ -1,4 +1,4 @@
-package com.orangereading.model;
+package com.orangereading.stardict.model;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author sean
  *
  */
-public class StarDictDictionarySynonymsIndexItem implements Serializable {
+public class DictionarySynonymsIndexItem implements Serializable {
 
 	private static final long serialVersionUID = 6672567268969497023L;
 
@@ -19,7 +19,7 @@ public class StarDictDictionarySynonymsIndexItem implements Serializable {
 	// a 32-bits unsigned number in network byte order
 	private Integer index;
 
-	public StarDictDictionarySynonymsIndexItem(String word, Integer index) {
+	public DictionarySynonymsIndexItem(String word, Integer index) {
 		this.word = word;
 		this.index = index;
 	}

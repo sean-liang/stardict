@@ -1,11 +1,11 @@
-package com.orangereading.reader;
+package com.orangereading.stardict.reader;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-import com.orangereading.model.StarDictDictionaryInfo;
-import com.orangereading.model.StarDictDictionarySynonymsIndex;
-import com.orangereading.model.StarDictDictionarySynonymsIndexItem;
+import com.orangereading.stardict.model.DictionaryInfo;
+import com.orangereading.stardict.model.DictionarySynonymsIndex;
+import com.orangereading.stardict.model.DictionarySynonymsIndexItem;
 
 /**
  * 
@@ -14,7 +14,7 @@ import com.orangereading.model.StarDictDictionarySynonymsIndexItem;
  * @author sean
  *
  */
-public class StarDictDictionarySynonymsIndexReader {
+public class DictionarySynonymsIndexReader {
 
 	/**
 	 * 
@@ -27,12 +27,12 @@ public class StarDictDictionarySynonymsIndexReader {
 	 * 
 	 * @return synonyms index data
 	 */
-	public StarDictDictionarySynonymsIndex read(final StarDictDictionaryInfo info, final ByteBuffer in) {
+	public DictionarySynonymsIndex read(final DictionaryInfo info, final ByteBuffer in) {
 		// The length of "synonym_word" should be less than 256.
 		final ByteBuffer buffer = ByteBuffer.allocate(256);
 
 		int counter = 0;
-		final StarDictDictionarySynonymsIndex index = new StarDictDictionarySynonymsIndex(info.getSynWordCount());
+		final DictionarySynonymsIndex index = new DictionarySynonymsIndex(info.getSynWordCount());
 		// index item format: synonym_word(256bytes) \0
 		// original_word_index(32/64bit)
 		while (in.remaining() > 0 && (null != info.getSynWordCount() && counter < info.getSynWordCount())) {
@@ -48,7 +48,7 @@ public class StarDictDictionarySynonymsIndexReader {
 				// get index
 				final Integer offset = in.getInt();
 
-				index.addItem(new StarDictDictionarySynonymsIndexItem(word, offset));
+				index.addItem(new DictionarySynonymsIndexItem(word, offset));
 				counter++;
 			} else {
 				buffer.put(b);

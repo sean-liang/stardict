@@ -1,4 +1,4 @@
-package com.orangereading.model;
+package com.orangereading.stardict.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,19 +11,19 @@ import java.util.List;
  * @author sean
  *
  */
-public class StarDictDictionarySynonymsIndex implements Serializable {
+public class DictionarySynonymsIndex implements Serializable {
 
 	private static final long serialVersionUID = -8783162669920171077L;
 
 	// Index items
-	private final List<StarDictDictionarySynonymsIndexItem> items;
+	private final List<DictionarySynonymsIndexItem> items;
 
 	/**
 	 * 
 	 * Create index item array.
 	 * 
 	 */
-	public StarDictDictionarySynonymsIndex() {
+	public DictionarySynonymsIndex() {
 		this.items = new ArrayList<>();
 	}
 
@@ -37,14 +37,14 @@ public class StarDictDictionarySynonymsIndex implements Serializable {
 	 * @throws IllegalArgumentException
 	 *             when wordCount <= 0
 	 */
-	public StarDictDictionarySynonymsIndex(final int wordCount) {
+	public DictionarySynonymsIndex(final int wordCount) {
 		if (wordCount <= 0) {
 			throw new IllegalArgumentException("wordCount must be geater than 0");
 		}
 		this.items = new ArrayList<>(wordCount);
 	}
 
-	public List<StarDictDictionarySynonymsIndexItem> getItems() {
+	public List<DictionarySynonymsIndexItem> getItems() {
 		return items;
 	}
 
@@ -57,7 +57,7 @@ public class StarDictDictionarySynonymsIndex implements Serializable {
 	 * 
 	 * @return item or null if position < 0 or position > items length
 	 */
-	public StarDictDictionarySynonymsIndexItem getItem(final int pos) {
+	public DictionarySynonymsIndexItem getItem(final int pos) {
 		return pos >= 0 && pos < items.size() ? items.get(pos) : null;
 	}
 
@@ -69,7 +69,7 @@ public class StarDictDictionarySynonymsIndex implements Serializable {
 	 *            index item
 	 * 
 	 */
-	public void addItem(final StarDictDictionarySynonymsIndexItem item) {
+	public void addItem(final DictionarySynonymsIndexItem item) {
 		if (this.items == null) {
 			throw new RuntimeException("items is null");
 		}
