@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import com.orangereading.stardict.model.DictionaryInfo;
+import com.orangereading.stardict.model.TypeIdentifier;
 
 /**
  * 
@@ -69,7 +70,12 @@ public class DictionaryInfoReader {
 					info.setDate(val);
 					break;
 				case "sametypesequence":
-					info.setSameTypeSequence(val);
+					final int len = val.length();
+					final TypeIdentifier[] types = new TypeIdentifier[len];
+					for (int i = 0; i < len; i++) {
+						types[i] = TypeIdentifier.valueOf(val.charAt(i));
+					}
+					info.setSameTypeSequence(types);
 					break;
 				}
 			}

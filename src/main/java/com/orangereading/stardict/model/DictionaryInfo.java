@@ -1,6 +1,7 @@
 package com.orangereading.stardict.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * 
@@ -47,7 +48,7 @@ public class DictionaryInfo implements Serializable {
 	// case, we expect a .dict file that's been optimized in two ways: the type
 	// identifiers should be omitted, and the size marker for the last data
 	// entry of each word should be omitted.
-	private String sameTypeSequence;
+	private TypeIdentifier[] sameTypeSequence;
 
 	public String getVersion() {
 		return version;
@@ -137,20 +138,20 @@ public class DictionaryInfo implements Serializable {
 		this.date = date;
 	}
 
-	public String getSameTypeSequence() {
+	public TypeIdentifier[] getSameTypeSequence() {
 		return sameTypeSequence;
 	}
 
-	public void setSameTypeSequence(String sameTypeSequence) {
+	public void setSameTypeSequence(TypeIdentifier[] sameTypeSequence) {
 		this.sameTypeSequence = sameTypeSequence;
 	}
 
 	@Override
 	public String toString() {
-		return "StartDictDictionaryInfo [version=" + version + ", bookname=" + bookname + ", wordCount=" + wordCount
+		return "DictionaryInfo [version=" + version + ", bookname=" + bookname + ", wordCount=" + wordCount
 				+ ", synWordCount=" + synWordCount + ", idxFileSize=" + idxFileSize + ", idxOffsetBits=" + idxOffsetBits
 				+ ", author=" + author + ", email=" + email + ", website=" + website + ", description=" + description
-				+ ", date=" + date + ", sameTypeSequence=" + sameTypeSequence + "]";
+				+ ", date=" + date + ", sameTypeSequence=" + Arrays.toString(sameTypeSequence) + "]";
 	}
 
 }
