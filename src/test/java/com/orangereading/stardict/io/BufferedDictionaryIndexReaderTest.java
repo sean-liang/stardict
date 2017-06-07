@@ -6,19 +6,19 @@ import org.junit.Test;
 
 import com.orangereading.stardict.domain.DictionaryIndex;
 import com.orangereading.stardict.domain.DictionaryInfo;
-import com.orangereading.stardict.io.DictionaryIndexReader;
+import com.orangereading.stardict.io.BufferedDictionaryIndexReader;
 
 import junit.framework.TestCase;
 
-public class DictionaryIndexReaderTest extends TestCase {
+public class BufferedDictionaryIndexReaderTest extends TestCase {
 
 	@Test
 	public void testRead32bitOffset() {
 		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(2);
 
-		final DictionaryIndexReader reader = new DictionaryIndexReader();
-		final DictionaryIndex indexes = reader.read(info, create32BitInput());
+		final DictionaryIndexReader reader = new BufferedDictionaryIndexReader(create32BitInput());
+		final DictionaryIndex indexes = reader.read(info);
 
 		assertEquals(2, indexes.size());
 
@@ -39,8 +39,8 @@ public class DictionaryIndexReaderTest extends TestCase {
 		info.setWordCount(2);
 		info.setIdxOffsetBits(64);
 
-		final DictionaryIndexReader reader = new DictionaryIndexReader();
-		final DictionaryIndex indexes = reader.read(info, create64BitInput());
+		final DictionaryIndexReader reader = new BufferedDictionaryIndexReader(create64BitInput());
+		final DictionaryIndex indexes = reader.read(info);
 
 		assertEquals(2, indexes.size());
 
@@ -60,8 +60,8 @@ public class DictionaryIndexReaderTest extends TestCase {
 		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(1);
 
-		final DictionaryIndexReader reader = new DictionaryIndexReader();
-		final DictionaryIndex indexes = reader.read(info, create32BitInput());
+		final DictionaryIndexReader reader = new BufferedDictionaryIndexReader(create32BitInput());
+		final DictionaryIndex indexes = reader.read(info);
 
 		assertEquals(1, indexes.size());
 		assertEquals("a", indexes.getItem(0).getWord());
@@ -72,8 +72,8 @@ public class DictionaryIndexReaderTest extends TestCase {
 		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(3);
 
-		final DictionaryIndexReader reader = new DictionaryIndexReader();
-		final DictionaryIndex indexes = reader.read(info, create32BitInput());
+		final DictionaryIndexReader reader = new BufferedDictionaryIndexReader(create32BitInput());
+		final DictionaryIndex indexes = reader.read(info);
 
 		assertEquals(2, indexes.size());
 		assertEquals("a", indexes.getItem(0).getWord());

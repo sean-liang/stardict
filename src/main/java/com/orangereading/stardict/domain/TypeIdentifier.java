@@ -63,4 +63,12 @@ public enum TypeIdentifier {
 				return type;
 		return null;
 	}
+
+	public char getIdentifierChar() {
+		return this.identifier;
+	}
+
+	public boolean isUpperCase() {
+		return this.identifier >= 'A' && this.identifier <= 'Z';
+	}
 }
