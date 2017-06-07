@@ -1,4 +1,4 @@
-package com.orangereading.stardict.model;
+package com.orangereading.stardict.domain;
 
 public enum TypeIdentifier {
 	// 'm' Word's pure text meaning. The data should be a utf-8 string ending
@@ -62,5 +62,13 @@ public enum TypeIdentifier {
 			if (type.identifier == c)
 				return type;
 		return null;
+	}
+
+	public char getIdentifierChar() {
+		return this.identifier;
+	}
+
+	public boolean isUpperCase() {
+		return this.identifier >= 'A' && this.identifier <= 'Z';
 	}
 }

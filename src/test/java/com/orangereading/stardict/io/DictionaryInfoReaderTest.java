@@ -1,22 +1,22 @@
-package com.orangereading.stardict.reader;
+package com.orangereading.stardict.io;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import com.orangereading.stardict.model.DictionaryInfo;
-import com.orangereading.stardict.model.TypeIdentifier;
-import com.orangereading.stardict.reader.DictionaryInfoReader;
+import com.orangereading.stardict.domain.DictionaryInfo;
+import com.orangereading.stardict.domain.TypeIdentifier;
+import com.orangereading.stardict.io.StreamDictionaryInfoReader;
 
 import junit.framework.TestCase;
 
 public class DictionaryInfoReaderTest extends TestCase {
 
 	public void testRead() {
-		final DictionaryInfoReader reader = new DictionaryInfoReader();
-		final DictionaryInfo info = reader.read(Stream.of("StarDict's dict ifo file", "version=2.4.2", "wordcount=100",
-				"synwordcount=200", "idxfilesize=300", "idxoffsetbits=64", "bookname=Test Dict", "author=Tester",
-				"email=test@test.com", "website=test.com", "description=some desc", "date=2003.08.26",
-				"sametypesequence=tm"));
+		final DictionaryInfoReader reader = new StreamDictionaryInfoReader(Stream.of("StarDict's dict ifo file",
+				"version=2.4.2", "wordcount=100", "synwordcount=200", "idxfilesize=300", "idxoffsetbits=64",
+				"bookname=Test Dict", "author=Tester", "email=test@test.com", "website=test.com",
+				"description=some desc", "date=2003.08.26", "sametypesequence=tm"));
+		final DictionaryInfo info = reader.read();
 
 		assertEquals("2.4.2", info.getVersion());
 		assertEquals("Test Dict", info.getBookname());

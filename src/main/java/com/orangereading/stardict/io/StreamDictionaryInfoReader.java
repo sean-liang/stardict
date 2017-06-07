@@ -1,36 +1,33 @@
-package com.orangereading.stardict.reader;
+package com.orangereading.stardict.io;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import com.orangereading.stardict.model.DictionaryInfo;
-import com.orangereading.stardict.model.TypeIdentifier;
+import com.orangereading.stardict.domain.DictionaryInfo;
+import com.orangereading.stardict.domain.TypeIdentifier;
 
 /**
  * 
- * Read StarDict .ifo file.
+ * Read StarDict .ifo file from stream.
  * 
  * @author sean
  *
  */
-public class DictionaryInfoReader {
+public class StreamDictionaryInfoReader implements DictionaryInfoReader {
 
 	private final static Pattern PROP_PATTERN = Pattern.compile("^([^=]+)=([^=]+)$");
 
-	/**
-	 * 
-	 * Read StarDict .ifo file.
-	 * 
-	 * @param stream
-	 *            .ifo file stream
-	 * 
-	 * @return meta data
-	 * 
-	 */
-	public DictionaryInfo read(final Stream<String> stream) {
+	private final Stream<String> stream;
+
+	public StreamDictionaryInfoReader(final Stream<String> stream) {
+		this.stream = stream;
+	}
+
+	@Override
+	public DictionaryInfo read() {
 		final DictionaryInfo info = new DictionaryInfo();
-		stream.forEach(line -> {
+		this.stream.forEach(line -> {
 			final Matcher matcher = PROP_PATTERN.matcher(line);
 			if (matcher.matches()) {
 				final String key = matcher.group(1);
