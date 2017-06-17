@@ -1,7 +1,7 @@
 package com.orangereading.stardict.io;
 
 import com.orangereading.stardict.domain.DictionaryIndex;
-import com.orangereading.stardict.domain.DictionaryInfo;
+import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
 /**
  * 
@@ -23,6 +23,6 @@ public interface DictionaryIndexReader {
 	 * 
 	 * @return index data
 	 */
-	DictionaryIndex read(DictionaryInfo info);
+	DictionaryIndex read(ImmutableDictionaryInfo info);
 
 }
