@@ -3,9 +3,9 @@ package com.orangereading.stardict.parser;
 import java.util.Arrays;
 
 import com.orangereading.stardict.domain.DictionaryIndexItem;
-import com.orangereading.stardict.domain.DictionaryInfo;
 import com.orangereading.stardict.domain.DictionaryItem;
 import com.orangereading.stardict.domain.DictionaryItemEntry;
+import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 import com.orangereading.stardict.domain.TypeIdentifier;
 
 /**
@@ -17,9 +17,9 @@ import com.orangereading.stardict.domain.TypeIdentifier;
  */
 public class SameTypeSequenceDictionaryParser implements DictionaryParser {
 
-	private final DictionaryInfo info;
+	private final ImmutableDictionaryInfo info;
 
-	public SameTypeSequenceDictionaryParser(final DictionaryInfo info) {
+	public SameTypeSequenceDictionaryParser(final ImmutableDictionaryInfo info) {
 		this.info = info;
 	}
 

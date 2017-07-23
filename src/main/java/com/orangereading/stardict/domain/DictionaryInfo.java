@@ -1,6 +1,5 @@
 package com.orangereading.stardict.domain;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -10,7 +9,7 @@ import java.util.Arrays;
  * @author sean
  *
  */
-public class DictionaryInfo implements Serializable {
+public class DictionaryInfo implements ImmutableDictionaryInfo {
 
 	private static final long serialVersionUID = 8843514996627435927L;
 
@@ -50,6 +49,10 @@ public class DictionaryInfo implements Serializable {
 	// entry of each word should be omitted.
 	private TypeIdentifier[] sameTypeSequence;
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getVersion()
+	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -58,6 +61,10 @@ public class DictionaryInfo implements Serializable {
 		this.version = version;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getBookname()
+	 */
+	@Override
 	public String getBookname() {
 		return bookname;
 	}
@@ -66,6 +73,10 @@ public class DictionaryInfo implements Serializable {
 		this.bookname = bookname;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getWordCount()
+	 */
+	@Override
 	public Integer getWordCount() {
 		return wordCount;
 	}
@@ -74,6 +85,10 @@ public class DictionaryInfo implements Serializable {
 		this.wordCount = wordCount;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getSynWordCount()
+	 */
+	@Override
 	public Integer getSynWordCount() {
 		return synWordCount;
 	}
@@ -82,6 +97,10 @@ public class DictionaryInfo implements Serializable {
 		this.synWordCount = synWordCount;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getIdxFileSize()
+	 */
+	@Override
 	public Long getIdxFileSize() {
 		return idxFileSize;
 	}
@@ -90,6 +109,10 @@ public class DictionaryInfo implements Serializable {
 		this.idxFileSize = idxFileSize;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getIdxOffsetBits()
+	 */
+	@Override
 	public Integer getIdxOffsetBits() {
 		return idxOffsetBits;
 	}
@@ -98,6 +121,10 @@ public class DictionaryInfo implements Serializable {
 		this.idxOffsetBits = idxOffsetBits;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getAuthor()
+	 */
+	@Override
 	public String getAuthor() {
 		return author;
 	}
@@ -106,6 +133,10 @@ public class DictionaryInfo implements Serializable {
 		this.author = author;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getEmail()
+	 */
+	@Override
 	public String getEmail() {
 		return email;
 	}
@@ -114,6 +145,10 @@ public class DictionaryInfo implements Serializable {
 		this.email = email;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getWebsite()
+	 */
+	@Override
 	public String getWebsite() {
 		return website;
 	}
@@ -122,6 +157,10 @@ public class DictionaryInfo implements Serializable {
 		this.website = website;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getDescription()
+	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -130,6 +169,10 @@ public class DictionaryInfo implements Serializable {
 		this.description = description;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getDate()
+	 */
+	@Override
 	public String getDate() {
 		return date;
 	}
@@ -138,6 +181,10 @@ public class DictionaryInfo implements Serializable {
 		this.date = date;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.orangereading.stardict.domain.ImmutableDictionaryInfo#getSameTypeSequence()
+	 */
+	@Override
 	public TypeIdentifier[] getSameTypeSequence() {
 		return sameTypeSequence;
 	}

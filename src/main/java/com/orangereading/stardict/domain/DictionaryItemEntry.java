@@ -32,7 +32,7 @@ public class DictionaryItemEntry implements Serializable {
 		return new String(this.data, charset);
 	}
 
-	public String getDataAsString() {
+	public String getDataAsLocalString() {
 		return new String(this.data);
 	}
 	

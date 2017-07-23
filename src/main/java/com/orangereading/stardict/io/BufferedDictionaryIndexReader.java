@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 
 import com.orangereading.stardict.domain.DictionaryIndex;
 import com.orangereading.stardict.domain.DictionaryIndexItem;
-import com.orangereading.stardict.domain.DictionaryInfo;
+import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class BufferedDictionaryIndexReader implements DictionaryIndexReader {
 	}
 
 	@Override
-	public DictionaryIndex read(final DictionaryInfo info) {
+	public DictionaryIndex read(final ImmutableDictionaryInfo info) {
 		// The length of "word_str" should be less than 256.
 		final ByteBuffer buf = ByteBuffer.allocate(256);
 

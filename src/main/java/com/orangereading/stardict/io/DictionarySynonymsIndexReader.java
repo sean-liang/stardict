@@ -3,9 +3,9 @@ package com.orangereading.stardict.io;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-import com.orangereading.stardict.domain.DictionaryInfo;
 import com.orangereading.stardict.domain.DictionarySynonymsIndex;
 import com.orangereading.stardict.domain.DictionarySynonymsIndexItem;
+import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
 /**
  * 
@@ -27,7 +27,7 @@ public class DictionarySynonymsIndexReader {
 	 * 
 	 * @return synonyms index data
 	 */
-	public DictionarySynonymsIndex read(final DictionaryInfo info, final ByteBuffer in) {
+	public DictionarySynonymsIndex read(final ImmutableDictionaryInfo info, final ByteBuffer in) {
 		// The length of "synonym_word" should be less than 256.
 		final ByteBuffer buffer = ByteBuffer.allocate(256);
 

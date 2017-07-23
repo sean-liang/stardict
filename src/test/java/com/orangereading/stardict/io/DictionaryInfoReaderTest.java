@@ -3,7 +3,7 @@ package com.orangereading.stardict.io;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import com.orangereading.stardict.domain.DictionaryInfo;
+import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 import com.orangereading.stardict.domain.TypeIdentifier;
 import com.orangereading.stardict.io.StreamDictionaryInfoReader;
 
@@ -16,7 +16,7 @@ public class DictionaryInfoReaderTest extends TestCase {
 				"version=2.4.2", "wordcount=100", "synwordcount=200", "idxfilesize=300", "idxoffsetbits=64",
 				"bookname=Test Dict", "author=Tester", "email=test@test.com", "website=test.com",
 				"description=some desc", "date=2003.08.26", "sametypesequence=tm"));
-		final DictionaryInfo info = reader.read();
+		final ImmutableDictionaryInfo info = reader.read();
 
 		assertEquals("2.4.2", info.getVersion());
 		assertEquals("Test Dict", info.getBookname());

@@ -1,6 +1,6 @@
 package com.orangereading.stardict.io;
 
-import com.orangereading.stardict.domain.DictionaryInfo;
+import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
 /**
  * 
@@ -18,6 +18,6 @@ public interface DictionaryInfoReader {
 	 * @return meta data
 	 * 
 	 */
-	DictionaryInfo read();
+	public ImmutableDictionaryInfo read();
 
 }

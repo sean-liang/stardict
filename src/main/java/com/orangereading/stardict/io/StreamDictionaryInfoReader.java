@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import com.orangereading.stardict.domain.DictionaryInfo;
+import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 import com.orangereading.stardict.domain.TypeIdentifier;
 
 /**
@@ -25,7 +26,7 @@ public class StreamDictionaryInfoReader implements DictionaryInfoReader {
 	}
 
 	@Override
-	public DictionaryInfo read() {
+	public ImmutableDictionaryInfo read() {
 		final DictionaryInfo info = new DictionaryInfo();
 		this.stream.forEach(line -> {
 			final Matcher matcher = PROP_PATTERN.matcher(line);
