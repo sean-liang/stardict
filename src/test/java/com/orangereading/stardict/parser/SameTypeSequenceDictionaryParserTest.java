@@ -5,7 +5,6 @@ import java.nio.ByteBuffer;
 import org.junit.Test;
 
 import com.orangereading.stardict.domain.DictionaryIndexItem;
-import com.orangereading.stardict.domain.DictionaryInfo;
 import com.orangereading.stardict.domain.DictionaryItem;
 import com.orangereading.stardict.domain.TypeIdentifier;
 
@@ -15,10 +14,8 @@ public class SameTypeSequenceDictionaryParserTest extends TestCase {
 
 	@Test
 	public void testParse() {
-		final DictionaryInfo info = new DictionaryInfo();
-		info.setSameTypeSequence(new TypeIdentifier[] { TypeIdentifier.WAVE, TypeIdentifier.TEXT,
+		final SameTypeSequenceDictionaryParser parser = new SameTypeSequenceDictionaryParser(new TypeIdentifier[] { TypeIdentifier.WAVE, TypeIdentifier.TEXT,
 				TypeIdentifier.PICTURE, TypeIdentifier.ENGLISH_PHONETIC });
-		final SameTypeSequenceDictionaryParser parser = new SameTypeSequenceDictionaryParser(info);
 
 		final ByteBuffer buffer = ByteBuffer.allocate(21);
 		buffer.putInt(3);

@@ -1,6 +1,7 @@
 package com.orangereading.stardict.io;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
@@ -16,13 +17,13 @@ import com.orangereading.stardict.parser.DictionaryParser;
  * @author sean
  *
  */
-public class MemoryMappedInputStreamDictionaryReader implements DictionaryReader {
+public class MemoryMappedInputStreamDictionaryDataReader implements DictionaryDataReader {
 
 	private final byte[] content;
 
 	private final DictionaryParser parser;
 
-	public MemoryMappedInputStreamDictionaryReader(final DictionaryParser parser, final InputStream in) {
+	public MemoryMappedInputStreamDictionaryDataReader(final DictionaryParser parser, final InputStream in) {
 		this.parser = parser;
 
 		// read stream fully to memory
@@ -36,6 +37,12 @@ public class MemoryMappedInputStreamDictionaryReader implements DictionaryReader
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);
 		}
+
+		try {
+			in.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -43,6 +50,11 @@ public class MemoryMappedInputStreamDictionaryReader implements DictionaryReader
 		final byte[] data = Arrays.copyOfRange(content, indexItem.getOffset().intValue(),
 				indexItem.getOffset().intValue() + indexItem.getSize());
 		return parser.parse(indexItem, data);
+	}
+
+	@Override
+	public void close() throws IOException {
+		// Nothing to close
 	}
 
 }

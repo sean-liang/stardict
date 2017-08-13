@@ -1,5 +1,7 @@
 package com.orangereading.stardict.io;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -14,15 +16,19 @@ import com.orangereading.stardict.parser.DictionaryParser;
  * @author sean
  *
  */
-public class RandomAccessFileDictionaryReader implements DictionaryReader {
+public class RandomAccessFileDictionaryDataReader implements DictionaryDataReader {
 
 	private final RandomAccessFile file;
 
 	private final DictionaryParser parser;
 
-	public RandomAccessFileDictionaryReader(final DictionaryParser parser, final RandomAccessFile file) {
+	public RandomAccessFileDictionaryDataReader(final DictionaryParser parser, final File file) {
 		this.parser = parser;
-		this.file = file;
+		try {
+			this.file = new RandomAccessFile(file, "r");
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -30,6 +36,11 @@ public class RandomAccessFileDictionaryReader implements DictionaryReader {
 		final byte[] data = new byte[indexItem.getSize()];
 		this.file.read(data, indexItem.getOffset().intValue(), indexItem.getSize());
 		return parser.parse(indexItem, data);
+	}
+
+	@Override
+	public void close() throws IOException {
+		this.file.close();
 	}
 
 }

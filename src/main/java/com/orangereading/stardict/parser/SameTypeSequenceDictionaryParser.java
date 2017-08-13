@@ -5,7 +5,6 @@ import java.util.Arrays;
 import com.orangereading.stardict.domain.DictionaryIndexItem;
 import com.orangereading.stardict.domain.DictionaryItem;
 import com.orangereading.stardict.domain.DictionaryItemEntry;
-import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 import com.orangereading.stardict.domain.TypeIdentifier;
 
 /**
@@ -17,19 +16,19 @@ import com.orangereading.stardict.domain.TypeIdentifier;
  */
 public class SameTypeSequenceDictionaryParser implements DictionaryParser {
 
-	private final ImmutableDictionaryInfo info;
+	private final TypeIdentifier[] typeIdentifiers;
 
-	public SameTypeSequenceDictionaryParser(final ImmutableDictionaryInfo info) {
-		this.info = info;
+	public SameTypeSequenceDictionaryParser(final TypeIdentifier[] typeIdentifiers) {
+		this.typeIdentifiers = typeIdentifiers;
 	}
 
 	@Override
 	public DictionaryItem parse(final DictionaryIndexItem indexItem, final byte[] bytes) {
 		final DictionaryItem item = new DictionaryItem(indexItem);
-		final int len = info.getSameTypeSequence().length;
+		final int len = this.typeIdentifiers.length;
 		int offset = 0;
 		for (int i = 0; i < len; i++) {
-			final TypeIdentifier type = info.getSameTypeSequence()[i];
+			final TypeIdentifier type = this.typeIdentifiers[i];
 
 			if (i == len - 1) {
 				// The omissions of last field's size information are the

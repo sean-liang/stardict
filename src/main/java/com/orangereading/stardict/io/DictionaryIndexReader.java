@@ -1,6 +1,8 @@
 package com.orangereading.stardict.io;
 
-import com.orangereading.stardict.domain.DictionaryIndex;
+import java.io.IOException;
+
+import com.orangereading.stardict.domain.ImmutableDictionaryIndex;
 import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
 /**
@@ -23,6 +25,6 @@ public interface DictionaryIndexReader {
 	 * 
 	 * @return index data
 	 */
-	DictionaryIndex read(ImmutableDictionaryInfo info);
+	ImmutableDictionaryIndex read(ImmutableDictionaryInfo info) throws IOException;
 
 }

@@ -1,28 +1,15 @@
 package com.orangereading.stardict.io;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
-import com.orangereading.stardict.domain.DictionaryIndexItem;
 import com.orangereading.stardict.domain.DictionaryItem;
+import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
-/**
- * 
- * Read StarDict .dict file.
- * 
- * @author sean
- *
- */
 public interface DictionaryReader {
-
-	/**
-	 * 
-	 * Read StarDict .dict file.
-	 * 
-	 * @param indexItem
-	 *            index info
-	 * 
-	 * @return dictionary item
-	 */
-	public DictionaryItem read(final DictionaryIndexItem indexItem) throws IOException;
+	
+	public ImmutableDictionaryInfo getInfo();
+	
+	public void eachWord(Consumer<DictionaryItem> consumer) throws IOException;
 
 }

@@ -6,7 +6,6 @@ import java.nio.ByteBuffer;
 import org.junit.Test;
 
 import com.orangereading.stardict.domain.DictionaryIndexItem;
-import com.orangereading.stardict.domain.DictionaryInfo;
 import com.orangereading.stardict.domain.DictionaryItem;
 import com.orangereading.stardict.domain.TypeIdentifier;
 import com.orangereading.stardict.parser.DictionaryParser;
@@ -14,7 +13,7 @@ import com.orangereading.stardict.parser.SameTypeSequenceDictionaryParser;
 
 import junit.framework.TestCase;
 
-public class MemoryMappedInputStreamDictionaryReaderTest extends TestCase {
+public class MemoryMappedInputStreamDictionaryDataReaderTest extends TestCase {
 
 	@Test
 	public void testRead() throws Exception {
@@ -22,11 +21,9 @@ public class MemoryMappedInputStreamDictionaryReaderTest extends TestCase {
 		buffer.put("abc".getBytes());
 
 		final ByteArrayInputStream in = new ByteArrayInputStream(buffer.array());
-		final DictionaryInfo info = new DictionaryInfo();
-		info.setSameTypeSequence(new TypeIdentifier[] { TypeIdentifier.WAVE });
-		final DictionaryParser parser = new SameTypeSequenceDictionaryParser(info);
+		final DictionaryParser parser = new SameTypeSequenceDictionaryParser(new TypeIdentifier[] { TypeIdentifier.WAVE });
 
-		final MemoryMappedInputStreamDictionaryReader reader = new MemoryMappedInputStreamDictionaryReader(parser, in);
+		final MemoryMappedInputStreamDictionaryDataReader reader = new MemoryMappedInputStreamDictionaryDataReader(parser, in);
 
 		final DictionaryIndexItem index = new DictionaryIndexItem("Test Word", 0L, 3);
 		final DictionaryItem item = reader.read(index);

@@ -1,24 +1,25 @@
 package com.orangereading.stardict.io;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import org.junit.Test;
 
-import com.orangereading.stardict.domain.DictionaryIndex;
 import com.orangereading.stardict.domain.DictionaryInfo;
-import com.orangereading.stardict.io.BufferedDictionaryIndexReader;
+import com.orangereading.stardict.domain.ImmutableDictionaryIndex;
 
 import junit.framework.TestCase;
 
-public class BufferedDictionaryIndexReaderTest extends TestCase {
+public class InputStreamDictionaryIndexReaderTest extends TestCase {
 
 	@Test
-	public void testRead32bitOffset() {
+	public void testRead32bitOffset() throws Exception {
 		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(2);
 
-		final DictionaryIndexReader reader = new BufferedDictionaryIndexReader(create32BitInput());
-		final DictionaryIndex indexes = reader.read(info);
+		final DictionaryIndexReader reader = new InputStreamDictionaryIndexReader(create32BitInput());
+		final ImmutableDictionaryIndex indexes = reader.read(info);
 
 		assertEquals(2, indexes.size());
 
@@ -34,13 +35,13 @@ public class BufferedDictionaryIndexReaderTest extends TestCase {
 	}
 
 	@Test
-	public void testRead64bitOffset() {
+	public void testRead64bitOffset() throws Exception {
 		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(2);
 		info.setIdxOffsetBits(64);
 
-		final DictionaryIndexReader reader = new BufferedDictionaryIndexReader(create64BitInput());
-		final DictionaryIndex indexes = reader.read(info);
+		final DictionaryIndexReader reader = new InputStreamDictionaryIndexReader(create64BitInput());
+		final ImmutableDictionaryIndex indexes = reader.read(info);
 
 		assertEquals(2, indexes.size());
 
@@ -56,31 +57,31 @@ public class BufferedDictionaryIndexReaderTest extends TestCase {
 	}
 
 	@Test
-	public void testReadWithLessWordCount() {
+	public void testReadWithLessWordCount() throws Exception {
 		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(1);
 
-		final DictionaryIndexReader reader = new BufferedDictionaryIndexReader(create32BitInput());
-		final DictionaryIndex indexes = reader.read(info);
+		final DictionaryIndexReader reader = new InputStreamDictionaryIndexReader(create32BitInput());
+		final ImmutableDictionaryIndex indexes = reader.read(info);
 
 		assertEquals(1, indexes.size());
 		assertEquals("a", indexes.getItem(0).getWord());
 	}
 
 	@Test
-	public void testReadWithMoreWordCount() {
+	public void testReadWithMoreWordCount() throws Exception {
 		final DictionaryInfo info = new DictionaryInfo();
 		info.setWordCount(3);
 
-		final DictionaryIndexReader reader = new BufferedDictionaryIndexReader(create32BitInput());
-		final DictionaryIndex indexes = reader.read(info);
+		final DictionaryIndexReader reader = new InputStreamDictionaryIndexReader(create32BitInput());
+		final ImmutableDictionaryIndex indexes = reader.read(info);
 
 		assertEquals(2, indexes.size());
 		assertEquals("a", indexes.getItem(0).getWord());
 		assertEquals("b", indexes.getItem(1).getWord());
 	}
 
-	private ByteBuffer create32BitInput() {
+	private InputStream create32BitInput() {
 		final ByteBuffer buffer = ByteBuffer.allocate(20);
 		buffer.put((byte) 97); // a
 		buffer.position(buffer.position() + 1);
@@ -91,10 +92,10 @@ public class BufferedDictionaryIndexReaderTest extends TestCase {
 		buffer.putInt(128);
 		buffer.putInt(64);
 		buffer.flip();
-		return buffer;
+		return new ByteArrayInputStream(buffer.array());
 	}
 
-	private ByteBuffer create64BitInput() {
+	private InputStream create64BitInput() {
 		final ByteBuffer buffer = ByteBuffer.allocate(28);
 		buffer.put((byte) 97); // a
 		buffer.position(buffer.position() + 1);
@@ -105,7 +106,7 @@ public class BufferedDictionaryIndexReaderTest extends TestCase {
 		buffer.putLong(128);
 		buffer.putInt(64);
 		buffer.flip();
-		return buffer;
+		return new ByteArrayInputStream(buffer.array());
 	}
 
 }

@@ -1,8 +1,5 @@
 package com.orangereading.stardict;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.orangereading.stardict.cli.AppCommander;
 
 /**
@@ -10,8 +7,6 @@ import com.orangereading.stardict.cli.AppCommander;
  *
  */
 public class App {
-
-	private static final Logger log = LogManager.getLogger();
 
 	public static void main(String[] args) {
 		final AppCommander commander = AppCommander.parse(args);

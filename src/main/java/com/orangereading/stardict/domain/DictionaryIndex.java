@@ -11,7 +11,7 @@ import java.util.List;
  * @author sean
  *
  */
-public class DictionaryIndex implements Serializable {
+public class DictionaryIndex implements Serializable, ImmutableDictionaryIndex {
 
 	private static final long serialVersionUID = -860867409851270304L;
 
@@ -44,19 +44,12 @@ public class DictionaryIndex implements Serializable {
 		this.items = new ArrayList<>(wordCount);
 	}
 
+	@Override
 	public List<DictionaryIndexItem> getItems() {
 		return items;
 	}
 
-	/**
-	 * 
-	 * Get item at that position. Start from 0.
-	 * 
-	 * @param pos
-	 *            position
-	 * 
-	 * @return item or null if position < 0 or position > items length
-	 */
+	@Override
 	public DictionaryIndexItem getItem(final int pos) {
 		return pos >= 0 && pos < items.size() ? items.get(pos) : null;
 	}
@@ -76,13 +69,7 @@ public class DictionaryIndex implements Serializable {
 		this.items.add(item);
 	}
 
-	/**
-	 * 
-	 * Get size of elements.
-	 * 
-	 * @return size or 0 if items is null
-	 * 
-	 */
+	@Override
 	public int size() {
 		return this.items != null ? this.items.size() : 0;
 	}
