@@ -1,15 +1,15 @@
 package com.orangereading.stardict.io;
 
+import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.util.function.Consumer;
 
-import com.orangereading.stardict.domain.DictionaryIndex;
 import com.orangereading.stardict.domain.DictionaryIndexItem;
-import com.orangereading.stardict.domain.ImmutableDictionaryIndex;
 import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
 /**
@@ -24,16 +24,15 @@ public class InputStreamDictionaryIndexReader implements DictionaryIndexReader {
 	private final DataInputStream in;
 
 	public InputStreamDictionaryIndexReader(final InputStream in) {
-		this.in = new DataInputStream(in);
+		this.in = new DataInputStream(new BufferedInputStream(in));
 	}
 
 	@Override
-	public ImmutableDictionaryIndex read(final ImmutableDictionaryInfo info) throws IOException {
+	public void eachItem(final ImmutableDictionaryInfo info, final Consumer<DictionaryIndexItem> consumer) throws IOException {
 		// The length of "word_str" should be less than 256.
 		final ByteBuffer buf = ByteBuffer.allocate(256);
 
 		int counter = 0;
-		final DictionaryIndex index = new DictionaryIndex(info.getWordCount());
 		// index item format: word_str(256bytes) \0 word_data_offset(32/64bit)
 		// word_data_size(32bit)
 		while (null != info.getWordCount() && counter < info.getWordCount()) {
@@ -58,14 +57,17 @@ public class InputStreamDictionaryIndexReader implements DictionaryIndexReader {
 				// get size
 				final Integer size = this.in.readInt();
 
-				index.addItem(new DictionaryIndexItem(word, offset, size));
+				consumer.accept(new DictionaryIndexItem(word, offset, size));
 				counter++;
 			} else {
 				buf.put(b);
 			}
 		}
+	}
 
-		return index;
+	@Override
+	public void close() throws IOException {
+		this.in.close();
 	}
 
 }

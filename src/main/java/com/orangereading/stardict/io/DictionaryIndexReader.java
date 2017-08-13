@@ -1,8 +1,10 @@
 package com.orangereading.stardict.io;
 
+import java.io.Closeable;
 import java.io.IOException;
+import java.util.function.Consumer;
 
-import com.orangereading.stardict.domain.ImmutableDictionaryIndex;
+import com.orangereading.stardict.domain.DictionaryIndexItem;
 import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
 /**
@@ -12,19 +14,21 @@ import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
  * @author sean
  *
  */
-public interface DictionaryIndexReader {
+public interface DictionaryIndexReader extends Closeable {
 
 	/**
 	 * 
-	 * Read StarDict .idx file.
+	 * Read all index items.
 	 * 
 	 * @param info
-	 *            dictionary meta data
-	 * @param in
-	 *            index file content in a ByteBuffer
+	 *            Dictionary Info
 	 * 
-	 * @return index data
+	 * @param consumer
+	 *            Index item consumer
+	 * 
+	 * @throws IOException
+	 * 
 	 */
-	ImmutableDictionaryIndex read(ImmutableDictionaryInfo info) throws IOException;
+	public void eachItem(ImmutableDictionaryInfo info, Consumer<DictionaryIndexItem> consumer) throws IOException;
 
 }

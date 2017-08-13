@@ -47,6 +47,9 @@ public class MemoryMappedInputStreamDictionaryDataReader implements DictionaryDa
 
 	@Override
 	public DictionaryItem read(final DictionaryIndexItem indexItem) {
+		if (indexItem.getOffset() + indexItem.getSize() > this.content.length) {
+			throw new RuntimeException("Index out of range.");
+		}
 		final byte[] data = Arrays.copyOfRange(content, indexItem.getOffset().intValue(),
 				indexItem.getOffset().intValue() + indexItem.getSize());
 		return parser.parse(indexItem, data);

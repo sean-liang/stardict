@@ -3,11 +3,13 @@ package com.orangereading.stardict.io;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
+import com.orangereading.stardict.domain.DictionaryIndexItem;
 import com.orangereading.stardict.domain.DictionaryInfo;
-import com.orangereading.stardict.domain.ImmutableDictionaryIndex;
 
 import junit.framework.TestCase;
 
@@ -19,19 +21,23 @@ public class InputStreamDictionaryIndexReaderTest extends TestCase {
 		info.setWordCount(2);
 
 		final DictionaryIndexReader reader = new InputStreamDictionaryIndexReader(create32BitInput());
-		final ImmutableDictionaryIndex indexes = reader.read(info);
+		final List<DictionaryIndexItem> indexes = new ArrayList<>();
+		
+		reader.eachItem(info, item -> indexes.add(item));
 
 		assertEquals(2, indexes.size());
 
-		assertNotNull(indexes.getItem(0));
-		assertEquals("a", indexes.getItem(0).getWord());
-		assertEquals(Long.valueOf(0), indexes.getItem(0).getOffset());
-		assertEquals(Integer.valueOf(128), indexes.getItem(0).getSize());
+		assertNotNull(indexes.get(0));
+		assertEquals("a", indexes.get(0).getWord());
+		assertEquals(Long.valueOf(0), indexes.get(0).getOffset());
+		assertEquals(Integer.valueOf(128), indexes.get(0).getSize());
 
-		assertNotNull(indexes.getItem(1));
-		assertEquals("b", indexes.getItem(1).getWord());
-		assertEquals(Long.valueOf(128), indexes.getItem(1).getOffset());
-		assertEquals(Integer.valueOf(64), indexes.getItem(1).getSize());
+		assertNotNull(indexes.get(1));
+		assertEquals("b", indexes.get(1).getWord());
+		assertEquals(Long.valueOf(128), indexes.get(1).getOffset());
+		assertEquals(Integer.valueOf(64), indexes.get(1).getSize());
+		
+		reader.close();
 	}
 
 	@Test
@@ -41,19 +47,23 @@ public class InputStreamDictionaryIndexReaderTest extends TestCase {
 		info.setIdxOffsetBits(64);
 
 		final DictionaryIndexReader reader = new InputStreamDictionaryIndexReader(create64BitInput());
-		final ImmutableDictionaryIndex indexes = reader.read(info);
+		final List<DictionaryIndexItem> indexes = new ArrayList<>();
+		
+		reader.eachItem(info, item -> indexes.add(item));
 
 		assertEquals(2, indexes.size());
 
-		assertNotNull(indexes.getItem(0));
-		assertEquals("a", indexes.getItem(0).getWord());
-		assertEquals(Long.valueOf(0), indexes.getItem(0).getOffset());
-		assertEquals(Integer.valueOf(128), indexes.getItem(0).getSize());
+		assertNotNull(indexes.get(0));
+		assertEquals("a", indexes.get(0).getWord());
+		assertEquals(Long.valueOf(0), indexes.get(0).getOffset());
+		assertEquals(Integer.valueOf(128), indexes.get(0).getSize());
 
-		assertNotNull(indexes.getItem(1));
-		assertEquals("b", indexes.getItem(1).getWord());
-		assertEquals(Long.valueOf(128), indexes.getItem(1).getOffset());
-		assertEquals(Integer.valueOf(64), indexes.getItem(1).getSize());
+		assertNotNull(indexes.get(1));
+		assertEquals("b", indexes.get(1).getWord());
+		assertEquals(Long.valueOf(128), indexes.get(1).getOffset());
+		assertEquals(Integer.valueOf(64), indexes.get(1).getSize());
+		
+		reader.close();
 	}
 
 	@Test
@@ -62,10 +72,14 @@ public class InputStreamDictionaryIndexReaderTest extends TestCase {
 		info.setWordCount(1);
 
 		final DictionaryIndexReader reader = new InputStreamDictionaryIndexReader(create32BitInput());
-		final ImmutableDictionaryIndex indexes = reader.read(info);
+		final List<DictionaryIndexItem> indexes = new ArrayList<>();
+		
+		reader.eachItem(info, item -> indexes.add(item));
 
 		assertEquals(1, indexes.size());
-		assertEquals("a", indexes.getItem(0).getWord());
+		assertEquals("a", indexes.get(0).getWord());
+		
+		reader.close();
 	}
 
 	@Test
@@ -74,11 +88,15 @@ public class InputStreamDictionaryIndexReaderTest extends TestCase {
 		info.setWordCount(3);
 
 		final DictionaryIndexReader reader = new InputStreamDictionaryIndexReader(create32BitInput());
-		final ImmutableDictionaryIndex indexes = reader.read(info);
+		final List<DictionaryIndexItem> indexes = new ArrayList<>();
+		
+		reader.eachItem(info, item -> indexes.add(item));
 
 		assertEquals(2, indexes.size());
-		assertEquals("a", indexes.getItem(0).getWord());
-		assertEquals("b", indexes.getItem(1).getWord());
+		assertEquals("a", indexes.get(0).getWord());
+		assertEquals("b", indexes.get(1).getWord());
+		
+		reader.close();
 	}
 
 	private InputStream create32BitInput() {

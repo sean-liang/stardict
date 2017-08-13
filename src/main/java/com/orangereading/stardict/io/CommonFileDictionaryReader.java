@@ -10,10 +10,9 @@ import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
-import java.util.zip.ZipInputStream;
+import java.util.zip.GZIPInputStream;
 
 import com.orangereading.stardict.domain.DictionaryItem;
-import com.orangereading.stardict.domain.ImmutableDictionaryIndex;
 import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 import com.orangereading.stardict.parser.DictionaryParser;
 import com.orangereading.stardict.parser.PlainDictionaryParser;
@@ -54,7 +53,7 @@ public class CommonFileDictionaryReader implements DictionaryReader {
 		}
 
 		for (File f : dir.listFiles()) {
-			if (!f.isFile()) {
+			if (!f.isFile() || !f.getName().startsWith(name + ".")) {
 				continue;
 			} else if (FileExtensionUtils.isDictionaryInfoFile(f.getName())) {
 				this.infoFilePath = f.getAbsolutePath();
@@ -80,7 +79,7 @@ public class CommonFileDictionaryReader implements DictionaryReader {
 
 	@Override
 	public void eachWord(final Consumer<DictionaryItem> consumer) throws IOException {
-		final ImmutableDictionaryIndex index = this.loadIndex();
+		final DictionaryIndexReader indexReader = this.createDictionaryIndexReader();
 
 		if (null == this.dictFilePath) {
 			throw new RuntimeException("Dictionary file absent.");
@@ -88,18 +87,24 @@ public class CommonFileDictionaryReader implements DictionaryReader {
 
 		final AtomicReference<DictionaryDataReader> reader = new AtomicReference<>();
 		if (FileExtensionUtils.isCompressedDictionaryDataFile(this.dictFilePath)) {
-			reader.set(new DictZipDictionaryDataReader(this.parser, new File(this.dictFilePath)));
+			reader.set(new MemoryMappedInputStreamDictionaryDataReader(this.parser,
+					new GZIPInputStream(new FileInputStream(this.dictFilePath))));
+			// reader.set(new DictZipDictionaryDataReader(this.parser, new
+			// File(this.dictFilePath)));
 		} else {
 			reader.set(new RandomAccessFileDictionaryDataReader(this.parser, new File(this.dictFilePath)));
 		}
-		index.getItems().forEach(item -> {
+
+		indexReader.eachItem(this.info, item -> {
 			try {
 				consumer.accept(reader.get().read(item));
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
 		});
+
 		reader.get().close();
+		indexReader.close();
 	}
 
 	private ImmutableDictionaryInfo loadInfo() {
@@ -115,18 +120,15 @@ public class CommonFileDictionaryReader implements DictionaryReader {
 		return info;
 	}
 
-	private ImmutableDictionaryIndex loadIndex() throws IOException {
+	private DictionaryIndexReader createDictionaryIndexReader() throws IOException {
 		if (null == this.indexFilePath) {
 			throw new RuntimeException("Index file absent.");
 		}
 		InputStream in = new FileInputStream(this.indexFilePath);
 		if (FileExtensionUtils.isCompressedDictionaryIndexFile(this.indexFilePath)) {
 			// read zip compressed index file (.idx.gz)
-			in = new ZipInputStream(in);
+			in = new GZIPInputStream(in);
 		}
-		final DictionaryIndexReader reader = new InputStreamDictionaryIndexReader(in);
-		final ImmutableDictionaryIndex index = reader.read(this.info);
-		in.close();
-		return index;
+		return new InputStreamDictionaryIndexReader(in);
 	}
 }
