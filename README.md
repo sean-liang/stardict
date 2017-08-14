@@ -97,7 +97,7 @@ _I can't find any dictionary that use compressed index file, so I implement it b
 
 ### Read Data File
 
-You need to read the info and index before read the data file. And `RandomAccessFileDictionaryDataReader` is used to read a uncompressed dict file from file.
+You need to read the info and index before reading the data file. And `RandomAccessFileDictionaryDataReader` is used to read a uncompressed dict file.
 
 ```java
 // the dict file
@@ -133,6 +133,6 @@ final DictionaryIndexReader reader = new MemoryMappedInputStreamDictionaryDataRe
 
 ## Contribution
 
-* I've done test on 233 chinese-english dictionaries that I can find from internet, and it works like a charm. If you find it's not compatible with your dictionary. Please create a new issue and attach the dictionary files or url to the dictionary.
+* I've done test on 233 chinese-english dictionaries that I can find from internet, and it works like a charm. If you find it's not compatible with your dictionary. Please create a new issue and attach the dictionary files or the url to the dictionary.
 * This project just implements a subset of the StarDict features. For other features like `Resource Storage`, `Tree Dictionary` are not supported. That's because I can't find any dictionary that supports those features. So it will be great if you can provide such kind of dictionaries.
 * You are also welcomed to create pull requests to help fix issues, add new features and new converters.
