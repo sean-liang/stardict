@@ -21,10 +21,10 @@ public class DictionaryRecursiveRunner {
 		for (File f : path.listFiles()) {
 			if (f.isFile() && FileExtensionUtils.isDictionaryInfoFile(f.getName())) {
 				try {
-					final DictionaryReader reader = new CommonFileDictionaryReader(path.getAbsolutePath(),
-							f.getName().substring(0, f.getName().lastIndexOf('.')));
+					final String name = f.getName().substring(0, f.getName().lastIndexOf('.'));
+					final DictionaryReader reader = new CommonFileDictionaryReader(path.getAbsolutePath(), name);
 					System.out.println(f.getAbsolutePath().substring(0, f.getAbsolutePath().lastIndexOf(".")) + " ...");
-					this.worker.run(reader);
+					this.worker.run(name, reader);
 				} catch (Throwable t) {
 					System.out.println(String.format("\tError: %s", t.getMessage()));
 				}

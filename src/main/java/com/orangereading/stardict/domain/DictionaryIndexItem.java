@@ -1,6 +1,7 @@
 package com.orangereading.stardict.domain;
 
 import java.io.Serializable;
+import java.util.Base64;
 
 /**
  * 
@@ -24,7 +25,7 @@ public class DictionaryIndexItem implements Serializable {
 	// word data's total size in .dict file, 32-bits unsigned number in network
 	// byte order.
 	private final Integer size;
-	
+
 	public DictionaryIndexItem(String word, Long offset, Integer size) {
 		this.word = word;
 		this.offset = offset;
@@ -33,6 +34,10 @@ public class DictionaryIndexItem implements Serializable {
 
 	public String getWord() {
 		return word;
+	}
+
+	public String getWordAsBase64String() {
+		return Base64.getEncoder().encodeToString(this.word.getBytes());
 	}
 
 	public Long getOffset() {

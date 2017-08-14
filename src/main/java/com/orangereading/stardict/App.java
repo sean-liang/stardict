@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.orangereading.stardict.cli.AppCommander;
 import com.orangereading.stardict.worker.DictionaryRecursiveRunner;
+import com.orangereading.stardict.worker.ExportWorker;
 import com.orangereading.stardict.worker.ValidateWorker;
 
 public class App {
@@ -13,8 +14,10 @@ public class App {
 		if ("validate".equals(commander.getCommand())) {
 			final DictionaryRecursiveRunner runner = new DictionaryRecursiveRunner(new ValidateWorker());
 			runner.run(new File(commander.getValidate().getFile()));
-		} else if ("convert".equals(commander.getCommand())) {
-
+		} else if ("export".equals(commander.getCommand())) {
+			final DictionaryRecursiveRunner runner = new DictionaryRecursiveRunner(
+					new ExportWorker(commander.getExport()));
+			runner.run(new File(commander.getExport().getFile()));
 		} else {
 			commander.printUsage();
 		}

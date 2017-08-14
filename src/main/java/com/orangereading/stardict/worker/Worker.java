@@ -6,6 +6,6 @@ import com.orangereading.stardict.io.DictionaryReader;
 
 public interface Worker {
 	
-	public void run(DictionaryReader reader) throws IOException;
+	public void run(String name, DictionaryReader reader) throws IOException;
 
 }

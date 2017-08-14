@@ -9,7 +9,7 @@ import com.orangereading.stardict.io.DictionaryReader;
 public class ValidateWorker implements Worker {
 
 	@Override
-	public void run(final DictionaryReader reader) throws IOException {
+	public void run(final String name, final DictionaryReader reader) throws IOException {
 		final ImmutableDictionaryInfo info = reader.getInfo();
 		final AtomicInteger counter = new AtomicInteger(0);
 		reader.eachWord(item -> counter.incrementAndGet());

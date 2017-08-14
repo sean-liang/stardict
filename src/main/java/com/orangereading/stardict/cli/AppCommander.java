@@ -17,14 +17,14 @@ public class AppCommander {
 	// validate command
 	private final CommandValidate validate = new CommandValidate();
 
-	// convert command
-	private final CommandConvert convert = new CommandConvert();
+	// export command
+	private final CommandExport export = new CommandExport();
 
 	private final JCommander commander;
 
 	private AppCommander() {
 		this.commander = JCommander.newBuilder().addObject(main).addCommand("validate", validate)
-				.addCommand("convert", convert).build();
+				.addCommand("export", export).build();
 	}
 
 	public CommandMain getMain() {
@@ -35,8 +35,8 @@ public class AppCommander {
 		return validate;
 	}
 
-	public CommandConvert getConvert() {
-		return convert;
+	public CommandExport getExport() {
+		return export;
 	}
 
 	public String getCommand() {
