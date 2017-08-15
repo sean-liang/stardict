@@ -10,14 +10,16 @@
 
 ## Command-Line Usage
 
-You can download the latest release from the [releases page](https://github.com/sean-liang/stardict/releases). And please  also make sure you have java 1.8 or later installed.
+You can download the latest release from the [releases page](https://github.com/sean-liang/stardict/releases). And please  also make sure you have java 1.8 or later installed. 
+
+It is also possible to pull the source code and use maven to build the executable jar. Run command `mvn clean compile assembly:single` under the root folder of the project and you will get `target/stardict-0.2.2-jar-with-dependencies.jar`.
 
 ### Validation
 
 It is always a good practice to validate your dictionary files in advance. And you can run below command to apply the validation:
 
 ```shell
-java -jar stardict-0.2.1.jar validate <folder that contains dictonary files>
+java -jar stardict-0.2.2.jar validate <folder that contains dictonary files>
 ```
 
 It will recursively walk through the directory tree and find all the info files that end with .ifo. Then it will try to match the index file and data file in the same folder with the same name and apply the validation on them. So if you have many dictionaries to validate, just point the path to their parent folder.
@@ -27,19 +29,32 @@ It will recursively walk through the directory tree and find all the info files 
 The main purpose of this tool is to convert the StarDict format files to other common data format like xml or json, so they can be used for easy future processing. Here is the way to do a conversion to xml:
 
 ```shell
-java -jar stardict-0.2.1.jar export -o <output folder> -f xml <folder that contains dictonary files>
+java -jar stardict-0.2.2.jar export -o <output folder> -f xml <folder that contains dictonary files>
 ```
 
 Please note that the elements in the xml are encoded in base64, you need to decode it to see the actual content. It will do the conversion recursively with the exact same strategy of validation.
 
 Since the xml is the only format that supported right now, you can omit the "-f xml" part.
 
-## Build
-
-You can use Maven to build a binary and a library package yourself. Just run `mvn package` under the root folder of the project, you will get two jar files under target folder: `stardict-0.2.1.jar` and `stardict-0.2.1-jar-with-dependencies.jar`. The later one is the executable binary with all the dependencies, you can use it as a standalone tool from command-line. And the first one is for library usage which doesn't have the dependencies since they are optional for API usage.
-
-
 ## API Quick Reference
+
+For maven projects just add this dependency:
+
+```xml
+<dependency>
+    <groupId>com.orangereading</groupId>
+    <artifactId>stardict</artifactId>
+    <version>0.2.2</version>
+    <exclusions>
+        <exclusion>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+`jcommander` is excluded as it's for command line argument parsing only, not required in library usage scenario.
 
 ### Load Dictionary
 
@@ -177,7 +192,7 @@ cli:com.orangereading.stardict.exporter.ConsoleExporter
 Then run this exporter with below command:
 
 ```shell
-java -jar stardict-0.2.1.jar export -f cli -x "put,extra,args,here" <folder that contains dictonary files>
+java -jar stardict-0.2.2.jar export -f cli -x "put,extra,args,here" <folder that contains dictonary files>
 ```
 
 ## Contribution
