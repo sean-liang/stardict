@@ -16,7 +16,7 @@ public class CommandExport {
 	private String format = "xml";
 
 	@Parameter(names = { "-x", "--extra-args" }, description = "extra arguments passed to the converter")
-	private String args;
+	private String extraArgs;
 
 	public String getFile() {
 		return this.file;
@@ -30,8 +30,8 @@ public class CommandExport {
 		return format;
 	}
 
-	public String getArgs() {
-		return args;
+	public String getExtraArgs() {
+		return extraArgs;
 	}
 
 }

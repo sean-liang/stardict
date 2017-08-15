@@ -23,6 +23,9 @@ public interface DictionaryDataReader extends Closeable {
 	 *            index info
 	 * 
 	 * @return dictionary item
+	 * 
+	 * @throws IOException
+	 *             IO Exception
 	 */
 	public DictionaryItem read(final DictionaryIndexItem indexItem) throws IOException;
 
