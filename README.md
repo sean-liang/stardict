@@ -133,10 +133,9 @@ final DictionaryIndexReader reader = new MemoryMappedInputStreamDictionaryDataRe
 
 ### Add Exporter
 
-All converter must implement `com.orangereading.stardict.exporter.DictionaryExporter` interface. And register itself by add the format and the fully qualified name of the exporter class to `resources/exporters.properties`.
+All exporters must implement `com.orangereading.stardict.exporter.DictionaryExporter` interface. And register itself by add the format and the fully qualified name of the exporter class to `resources/exporters.properties`.
 
 Here is an sample export which just print some info to console:
-
 
 ```java
 package com.orangereading.stardict.exporter;
@@ -168,7 +167,7 @@ public class ConsoleExporter implements DictionaryExporter {
 }
 ```
 
-And add this to `resources/exporters.properties`:
+Register itself to `resources/exporters.properties`:
 
 ```properties
 ...
