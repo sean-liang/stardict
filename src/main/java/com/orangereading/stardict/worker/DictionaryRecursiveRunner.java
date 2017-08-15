@@ -6,6 +6,13 @@ import com.orangereading.stardict.io.CommonFileDictionaryReader;
 import com.orangereading.stardict.io.DictionaryReader;
 import com.orangereading.stardict.util.FileExtensionUtils;
 
+/**
+ * 
+ * Run worker against a dictionary tree.<br>
+ * 
+ * @author sean
+ *
+ */
 public class DictionaryRecursiveRunner {
 
 	private final Worker worker;
@@ -14,6 +21,13 @@ public class DictionaryRecursiveRunner {
 		this.worker = worker;
 	}
 
+	/**
+	 * 
+	 * Run worker against a dictionary tree.
+	 * 
+	 * @param path
+	 *            parent folder path
+	 */
 	public void run(final File path) {
 		if (!path.isDirectory()) {
 			throw new RuntimeException("Not directory");

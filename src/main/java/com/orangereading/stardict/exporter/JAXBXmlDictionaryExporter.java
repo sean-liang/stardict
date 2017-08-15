@@ -1,7 +1,10 @@
 package com.orangereading.stardict.exporter;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,20 +18,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
+import com.orangereading.stardict.cli.CommandExport;
 import com.orangereading.stardict.domain.DictionaryItem;
 import com.orangereading.stardict.domain.DictionaryItemEntry;
 import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
-import com.orangereading.stardict.domain.TypeIdentifier;
 
+/**
+ * 
+ * Export dictionary to xml format with JAXB.
+ * 
+ * @author sean
+ *
+ */
 public class JAXBXmlDictionaryExporter implements DictionaryExporter {
 
-	private final OutputStream stream;
+	private OutputStream stream;
 
-	private final XMLDictRoot dict;
+	private XMLDictRoot dict;
 
-	public JAXBXmlDictionaryExporter(final ImmutableDictionaryInfo info, final OutputStream stream) {
-		this.stream = stream;
+	public void init(final ImmutableDictionaryInfo info, final String name, final CommandExport command) {
 		this.dict = new XMLDictRoot(info);
+		try {
+			this.stream = new FileOutputStream(Paths.get(command.getOutput(), name + ".xml").toFile());
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public interface ImmutableDictionaryIndex {
 	 * @param pos
 	 *            position
 	 * 
-	 * @return item or null if position < 0 or position > items length
+	 * @return item or null if position less than 0 or position greater than items length
 	 */
 	DictionaryIndexItem getItem(int pos);
 

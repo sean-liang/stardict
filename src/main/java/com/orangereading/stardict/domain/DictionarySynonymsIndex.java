@@ -35,7 +35,7 @@ public class DictionarySynonymsIndex implements Serializable {
 	 *            array size
 	 * 
 	 * @throws IllegalArgumentException
-	 *             when wordCount <= 0
+	 *             when wordCount less or equal than 0
 	 */
 	public DictionarySynonymsIndex(final int wordCount) {
 		if (wordCount <= 0) {
@@ -55,7 +55,7 @@ public class DictionarySynonymsIndex implements Serializable {
 	 * @param pos
 	 *            position
 	 * 
-	 * @return item or null if position < 0 or position > items length
+	 * @return item or null if position less than 0 or position greater than items length
 	 */
 	public DictionarySynonymsIndexItem getItem(final int pos) {
 		return pos >= 0 && pos < items.size() ? items.get(pos) : null;

@@ -6,6 +6,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 import com.orangereading.stardict.io.DictionaryReader;
 
+/**
+ * 
+ * Validate worker.
+ * 
+ * @author sean
+ *
+ */
 public class ValidateWorker implements Worker {
 
 	@Override

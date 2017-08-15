@@ -27,6 +27,7 @@ public interface DictionaryIndexReader extends Closeable {
 	 *            Index item consumer
 	 * 
 	 * @throws IOException
+	 *             IO Exception
 	 * 
 	 */
 	public void eachItem(ImmutableDictionaryInfo info, Consumer<DictionaryIndexItem> consumer) throws IOException;

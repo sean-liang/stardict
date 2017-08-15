@@ -20,8 +20,6 @@ public interface DictionaryParser {
 	 * 
 	 * Parse dictionary item.
 	 * 
-	 * @param info
-	 *            meta data
 	 * @param indexItem
 	 *            index
 	 * @param bytes

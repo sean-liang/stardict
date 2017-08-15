@@ -1,5 +1,12 @@
 package com.orangereading.stardict.util;
 
+/**
+ * 
+ * Util class to chech file extensions.
+ * 
+ * @author sean
+ *
+ */
 public final class FileExtensionUtils {
 
 	private FileExtensionUtils() {
@@ -13,6 +20,8 @@ public final class FileExtensionUtils {
 	 * @param fname
 	 *            File Name
 	 *
+	 * @return if the file is a dictionary info file
+	 *
 	 */
 	public static boolean isDictionaryInfoFile(final String fname) {
 		return fname != null && fname.toLowerCase().endsWith(".ifo");
@@ -25,6 +34,7 @@ public final class FileExtensionUtils {
 	 * @param fname
 	 *            File Name
 	 *
+	 * @return if the file is a dictionary index file(compressed or normal)
 	 */
 	public static boolean isDictionaryIndexFile(final String fname) {
 		return fname != null && (fname.toLowerCase().endsWith(".idx") || fname.toLowerCase().endsWith(".idx.gz"));
@@ -37,6 +47,8 @@ public final class FileExtensionUtils {
 	 * @param fname
 	 *            File Name
 	 *
+	 *
+	 * @return if the file is a dictionary data file(compressed or normal)
 	 */
 	public static boolean isDictionaryDataFile(final String fname) {
 		return fname != null && (fname.toLowerCase().endsWith(".dict") || fname.toLowerCase().endsWith(".dict.dz"));
@@ -49,6 +61,7 @@ public final class FileExtensionUtils {
 	 * @param fname
 	 *            File Name
 	 *
+	 * @return if the file is a compressed dictionary index file
 	 */
 	public static boolean isCompressedDictionaryIndexFile(final String fname) {
 		return fname != null && fname.toLowerCase().endsWith(".idx.gz");
@@ -61,6 +74,7 @@ public final class FileExtensionUtils {
 	 * @param fname
 	 *            File Name
 	 *
+	 * @return if the file is a compressed dictionary data file
 	 */
 	public static boolean isCompressedDictionaryDataFile(final String fname) {
 		return fname != null && fname.toLowerCase().endsWith(".dict.dz");
