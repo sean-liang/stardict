@@ -12,8 +12,11 @@ public class CommandExport {
 	@Parameter(names = { "-o", "--output" }, description = "output folder")
 	private String output;
 
-	@Parameter(names = { "-f", "--format" }, description = "target format, only support xml now")
+	@Parameter(names = { "-f", "--format" }, description = "target format, default is xml")
 	private String format = "xml";
+
+	@Parameter(names = { "-x", "--extra-args" }, description = "extra arguments passed to the converter")
+	private String args;
 
 	public String getFile() {
 		return this.file;
@@ -25,6 +28,10 @@ public class CommandExport {
 
 	public String getFormat() {
 		return format;
+	}
+
+	public String getArgs() {
+		return args;
 	}
 
 }

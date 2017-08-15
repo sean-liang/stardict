@@ -5,7 +5,7 @@
 	<groupId>com.orangereading</groupId>
 	<artifactId>stardict</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2.0</version>
+	<version>0.2.1</version>
 
 	<name>StarDict</name>
 	<url>https://github.com/sean-liang/stardict</url>
