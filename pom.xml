@@ -1,15 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 
 	<groupId>com.orangereading</groupId>
 	<artifactId>stardict</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1.0</version>
 
-	<name>stardict</name>
+	<name>StarDict</name>
 	<url>https://github.com/sean-liang/stardict</url>
-	<description>Tools to work with stardict dictionary files.</description>
+	<description>Tools to work with stardict dictionary files. Command line validation and export tool.</description>
 
 	<licenses>
 		<license>
@@ -21,7 +26,17 @@
 
 	<scm>
 		<url>https://github.com/sean-liang/stardict.git</url>
+		<connection>scm:git:git://github.com/sean-liang/stardict.git</connection>
+		<developerConnection>scm:git:git@github.com:sean-liang/stardict.git</developerConnection>
 	</scm>
+
+	<developers>
+		<developer>
+			<email>sean.liang.inbox@gmail.com</email>
+			<name>Sean Liang</name>
+			<url>http://liangshuang.name/</url>
+		</developer>
+	</developers>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -58,6 +73,34 @@
 	</dependencies>
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<charset>UTF-8</charset>
+					<encoding>UTF-8</encoding>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
