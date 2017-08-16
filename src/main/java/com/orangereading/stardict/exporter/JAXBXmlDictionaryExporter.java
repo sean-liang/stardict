@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
+import com.orangereading.stardict.annotation.Exporter;
 import com.orangereading.stardict.cli.CommandExport;
 import com.orangereading.stardict.domain.DictionaryItem;
 import com.orangereading.stardict.domain.DictionaryItemEntry;
@@ -30,6 +31,7 @@ import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
  * @author sean
  *
  */
+@Exporter("xml")
 public class JAXBXmlDictionaryExporter implements DictionaryExporter {
 
 	private OutputStream stream;

@@ -148,7 +148,7 @@ final DictionaryIndexReader reader = new MemoryMappedInputStreamDictionaryDataRe
 
 ### Add Exporter
 
-All exporters must implement `com.orangereading.stardict.exporter.DictionaryExporter` interface. And register itself by add the format and the fully qualified name of the exporter class to `resources/exporters.properties`.
+All exporters must implement `com.orangereading.stardict.exporter.DictionaryExporter` interface. And register itself by using annotation `com.orangereading.stardict.annotation.Exporter`.
 
 Here is an sample export which just print some info to console:
 
@@ -157,10 +157,12 @@ package com.orangereading.stardict.exporter;
 
 import java.io.IOException;
 
+import com.orangereading.stardict.annotation.Exporter;
 import com.orangereading.stardict.cli.CommandExport;
 import com.orangereading.stardict.domain.DictionaryItem;
 import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
+@Exporter("cli")
 public class ConsoleExporter implements DictionaryExporter {
 
 	@Override
@@ -180,13 +182,7 @@ public class ConsoleExporter implements DictionaryExporter {
 	}
 
 }
-```
 
-Register itself to `resources/exporters.properties`:
-
-```properties
-...
-cli:com.orangereading.stardict.exporter.ConsoleExporter
 ```
 
 Then run this exporter with below command:
