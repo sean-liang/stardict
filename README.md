@@ -6,7 +6,12 @@
 
 * Support StarDict Compressed Dictionary Index Format .idx.gz
 * Support StarDict Compressed Dictionary Data Format .dict.dz
+<<<<<<< Updated upstream
 * Support StarDict "sametypesequence" Dictionary Data Format
+=======
+* Support StarDict "sametypesequence" Dictionary Data Format
+* Pluggable Exporter
+>>>>>>> Stashed changes
 
 ## Command-Line Usage
 
