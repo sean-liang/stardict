@@ -1,10 +1,12 @@
 package com.orangereading.stardict.exporter;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
+import org.reflections.Reflections;
+
+import com.orangereading.stardict.annotation.Exporter;
 
 public final class ExporterRegistry {
 
@@ -16,19 +18,12 @@ public final class ExporterRegistry {
 
 	@SuppressWarnings("unchecked")
 	public static void init() {
-		try (final InputStream in = ExporterRegistry.class.getResourceAsStream("/exporters.properties")) {
-			final Properties props = new Properties();
-			props.load(in);
-			props.forEach((type, exporter) -> {
-				try {
-					exporters.put(type.toString(), (Class<DictionaryExporter>) Class.forName(exporter.toString()));
-				} catch (ClassNotFoundException e) {
-					throw new RuntimeException(e);
-				}
-			});
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		final Reflections reflections = new Reflections();
+		final Set<Class<?>> exporterClasses = reflections.getTypesAnnotatedWith(Exporter.class);
+		exporterClasses.forEach(clazz -> {
+			final String key = clazz.getAnnotation(Exporter.class).value();
+			exporters.put(key, (Class<? extends DictionaryExporter>) clazz);
+		});
 	}
 
 	public static Class<? extends DictionaryExporter> getExporter(final String type) {

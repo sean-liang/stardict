@@ -2,10 +2,12 @@ package com.orangereading.stardict.exporter;
 
 import java.io.IOException;
 
+import com.orangereading.stardict.annotation.Exporter;
 import com.orangereading.stardict.cli.CommandExport;
 import com.orangereading.stardict.domain.DictionaryItem;
 import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
+@Exporter("cli")
 public class ConsoleExporter implements DictionaryExporter {
 
 	@Override

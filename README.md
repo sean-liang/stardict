@@ -7,17 +7,20 @@
 * Support StarDict Compressed Dictionary Index Format .idx.gz
 * Support StarDict Compressed Dictionary Data Format .dict.dz
 * Support StarDict "sametypesequence" Dictionary Data Format
+* Plugable Exporter
 
 ## Command-Line Usage
 
-You can download the latest release from the [releases page](https://github.com/sean-liang/stardict/releases). And please  also make sure you have java 1.8 or later installed.
+You can download the latest release from the [releases page](https://github.com/sean-liang/stardict/releases). And please  also make sure you have java 1.8 or later installed. 
+
+It is also possible to pull the source code and use maven to build the executable jar. Run command `mvn clean compile assembly:single` under the root folder of the project and you will get `target/stardict-0.2.2-jar-with-dependencies.jar`.
 
 ### Validation
 
 It is always a good practice to validate your dictionary files in advance. And you can run below command to apply the validation:
 
 ```shell
-java -jar stardict-0.2.1.jar validate <folder that contains dictonary files>
+java -jar stardict-0.2.2.jar validate <folder that contains dictonary files>
 ```
 
 It will recursively walk through the directory tree and find all the info files that end with .ifo. Then it will try to match the index file and data file in the same folder with the same name and apply the validation on them. So if you have many dictionaries to validate, just point the path to their parent folder.
@@ -27,19 +30,36 @@ It will recursively walk through the directory tree and find all the info files 
 The main purpose of this tool is to convert the StarDict format files to other common data format like xml or json, so they can be used for easy future processing. Here is the way to do a conversion to xml:
 
 ```shell
-java -jar stardict-0.2.1.jar export -o <output folder> -f xml <folder that contains dictonary files>
+java -jar stardict-0.2.2.jar export -o <output folder> -f xml <folder that contains dictonary files>
 ```
 
 Please note that the elements in the xml are encoded in base64, you need to decode it to see the actual content. It will do the conversion recursively with the exact same strategy of validation.
 
 Since the xml is the only format that supported right now, you can omit the "-f xml" part.
 
-## Build
-
-You can use Maven to build a binary and a library package yourself. Just run `mvn package` under the root folder of the project, you will get two jar files under target folder: `stardict-0.2.1.jar` and `stardict-0.2.1-jar-with-dependencies.jar`. The later one is the executable binary with all the dependencies, you can use it as a standalone tool from command-line. And the first one is for library usage which doesn't have the dependencies since they are optional for API usage.
-
-
 ## API Quick Reference
+
+For maven projects just add this dependency:
+
+```xml
+<dependency>
+    <groupId>com.orangereading</groupId>
+    <artifactId>stardict</artifactId>
+    <version>0.2.2</version>
+    <exclusions>
+        <exclusion>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+`jcommander` and `reflections ` are excluded as they are for command line usage only, not required in library usage scenario.
 
 ### Load Dictionary
 
@@ -93,7 +113,7 @@ final DictionaryIndexReader reader = InputStreamDictionaryIndexReader(gzipIn);
 ...
 ```
 
-_I can't find any dictionary that use compressed index file, so I implement it based on the description from the document, and never got a change to test it on a real dictionary._
+_I can't find any dictionary that use compressed index file, so I implement it based on the description from the document, and never got a chance to test it on a real dictionary._
 
 ### Read Data File
 
@@ -133,19 +153,21 @@ final DictionaryIndexReader reader = new MemoryMappedInputStreamDictionaryDataRe
 
 ### Add Exporter
 
-All exporters must implement `com.orangereading.stardict.exporter.DictionaryExporter` interface. And register itself by add the format and the fully qualified name of the exporter class to `resources/exporters.properties`.
+All exporters must implement `com.orangereading.stardict.exporter.DictionaryExporter` interface. And register itself by using annotation `com.orangereading.stardict.annotation.Exporter`.
 
-Here is an sample export which just print some info to console:
+Here is a sample exporter which just print some info to console:
 
 ```java
 package com.orangereading.stardict.exporter;
 
 import java.io.IOException;
 
+import com.orangereading.stardict.annotation.Exporter;
 import com.orangereading.stardict.cli.CommandExport;
 import com.orangereading.stardict.domain.DictionaryItem;
 import com.orangereading.stardict.domain.ImmutableDictionaryInfo;
 
+@Exporter("cli")
 public class ConsoleExporter implements DictionaryExporter {
 
 	@Override
@@ -165,19 +187,13 @@ public class ConsoleExporter implements DictionaryExporter {
 	}
 
 }
-```
 
-Register itself to `resources/exporters.properties`:
-
-```properties
-...
-cli:com.orangereading.stardict.exporter.ConsoleExporter
 ```
 
 Then run this exporter with below command:
 
 ```shell
-java -jar stardict-0.2.1.jar export -f cli -x "put,extra,args,here" <folder that contains dictonary files>
+java -jar stardict-0.2.2.jar export -f cli -x "put,extra,args,here" <folder that contains dictonary files>
 ```
 
 ## Contribution
