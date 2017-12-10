@@ -6,12 +6,8 @@
 
 * Support StarDict Compressed Dictionary Index Format .idx.gz
 * Support StarDict Compressed Dictionary Data Format .dict.dz
-<<<<<<< Updated upstream
-* Support StarDict "sametypesequence" Dictionary Data Format
-=======
 * Support StarDict "sametypesequence" Dictionary Data Format
 * Pluggable Exporter
->>>>>>> Stashed changes
 
 ## Command-Line Usage
 
@@ -75,11 +71,15 @@ For maven projects just add this dependency:
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
         </exclusion>
+        <exclusion>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+        </exclusion>
     </exclusions>
 </dependency>
 ```
 
-`jcommander` is excluded as it's for command line argument parsing only, not required in library usage scenario.
+`jcommander` and `reflections ` are excluded as they are for command line usage only, not required in library usage scenario.
 
 ### Load Dictionary
 
@@ -133,7 +133,7 @@ final DictionaryIndexReader reader = InputStreamDictionaryIndexReader(gzipIn);
 ...
 ```
 
-_I can't find any dictionary that use compressed index file, so I implement it based on the description from the document, and never got a change to test it on a real dictionary._
+_I can't find any dictionary that use compressed index file, so I implement it based on the description from the document, and never got a chance to test it on a real dictionary._
 
 ### Read Data File
 
@@ -175,7 +175,7 @@ final DictionaryIndexReader reader = new MemoryMappedInputStreamDictionaryDataRe
 
 All exporters must implement `com.orangereading.stardict.exporter.DictionaryExporter` interface. And register itself by using annotation `com.orangereading.stardict.annotation.Exporter`.
 
-Here is an sample export which just print some info to console:
+Here is a sample exporter which just print some info to console:
 
 ```java
 package com.orangereading.stardict.exporter;
