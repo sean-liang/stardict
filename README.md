@@ -42,19 +42,19 @@ Since the xml is the only format that supported right now, you can omit the "-f 
 Pull docker image:
 
 ```
-docker pull seanl:stardict
+docker pull seanl/stardict
 ```
 
 Validation is the default behavior:
 
 ```
-docker run -ti -v /some/input/folder:/stardict/input stardict
+docker run -ti --rm -v /some/input/folder:/stardict/input stardict
 ```
 
 Export:
 
 ```
-docker run -ti -v /some/input/folder:/stardict/input -v /some/output/folder:/stardict/output stardict export -o /stardict/output -f xml /stardict/input
+docker run -ti --rm -v /some/input/folder:/stardict/input -v /some/output/folder:/stardict/output stardict export -o /stardict/output -f xml /stardict/input
 ```
 
 ## API Quick Reference
