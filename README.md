@@ -48,13 +48,13 @@ docker pull seanl/stardict
 Validation is the default behavior:
 
 ```
-docker run -ti --rm -v /some/input/folder:/stardict/input stardict
+docker run -ti --rm -v /some/input/folder:/stardict/input seanl/stardict
 ```
 
 Export:
 
 ```
-docker run -ti --rm -v /some/input/folder:/stardict/input -v /some/output/folder:/stardict/output stardict export -o /stardict/output -f xml /stardict/input
+docker run -ti --rm -v /some/input/folder:/stardict/input -v /some/output/folder:/stardict/output seanl/stardict export -o /stardict/output -f xml /stardict/input
 ```
 
 ## API Quick Reference
