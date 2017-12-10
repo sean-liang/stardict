@@ -15,7 +15,7 @@
 
 ## Command-Line Usage
 
-You can download the latest release from the [releases page](https://github.com/sean-liang/stardict/releases). And please  also make sure you have java 1.8 or later installed. 
+You can download the latest release from the [releases page](https://github.com/sean-liang/stardict/releases). And please  also make sure you have java 1.8 or later installed.
 
 It is also possible to pull the source code and use maven to build the executable jar. Run command `mvn clean compile assembly:single` under the root folder of the project and you will get `target/stardict-0.2.2-jar-with-dependencies.jar`.
 
@@ -40,6 +40,26 @@ java -jar stardict-0.2.2.jar export -o <output folder> -f xml <folder that conta
 Please note that the elements in the xml are encoded in base64, you need to decode it to see the actual content. It will do the conversion recursively with the exact same strategy of validation.
 
 Since the xml is the only format that supported right now, you can omit the "-f xml" part.
+
+## Run Command-Line Tool With Docker
+
+Pull docker image:
+
+```
+docker pull seanl:stardict
+```
+
+Validation is the default behavior:
+
+```
+docker run -ti -v /some/input/folder:/stardict/input stardict
+```
+
+Export:
+
+```
+docker run -ti -v /some/input/folder:/stardict/input -v /some/output/folder:/stardict/output stardict export -o /stardict/output -f xml /stardict/input
+```
 
 ## API Quick Reference
 
@@ -74,7 +94,7 @@ final String name = ...;
 final DictionaryReader reader = new CommonFileDictionaryReader(path, name);
 // Print out all items
 reader.eachWord(item -> {
-	System.out.println(item.getIndex().getWord());
+    System.out.println(item.getIndex().getWord());
     item.getEntries().forEach(entry -> System.out.println(entry.getType().name() + "> " + entry.getDataAsUTF8String());
 });
 ```
